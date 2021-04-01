@@ -1,14 +1,12 @@
 #' @description 合并一个样本多个run的fastq文件
 #' @author dragon 2017.12.25
 #' @param trim_galore_resultDir 字符串，数据分析结果存储路径
-#' @param outfilepath 字符串，输出.sh文件
 #' @param paired TRUE or FALSE，数据测序类型，单末端还是双末端
 #' @return 在数据存储路径下的trim_galore产生合并多run的fq.gz文件
 
 #' @note 要求basePath下存在SRPSampleInfo.RData文件
 mergeFastq <- function(trim_galore_resultDir,
                        sampleInfoFile, 
-                       outfilepath,
 					   paired = TRUE){
 	if(!file.exists(sampleInfoFile)){
 		return(cat("ERROR:", sampleInfoFile, "not exist!\n"))
@@ -49,50 +47,48 @@ mergeFastq <- function(trim_galore_resultDir,
 					fastq1 <- paste(fastqFiles1[index], collapse = " ")
 					fastq2 <- paste(fastqFiles2[index], collapse = " ")
 					merge.command1 <- paste0("cat ", fastq1, " > ", trim_galore_resultDir, "/", x, "_1_val_1.fq.gz")
+					system(merge.command1)
 					merge.command2 <- paste0("cat ", fastq2, " > ", trim_galore_resultDir, "/", x, "_2_val_2.fq.gz")
+					system(merge.command2)
+
 					#必须删除单独的run的fastq文件，否则会影响后面结果
 					delete.command1 <- paste("rm", fastq1, sep = " ")
+					system(delete.command1)
 					delete.command2 <- paste("rm", fastq2, sep = " ")
-					
+					system(delete.command2)
 				}else{
 					index2 <- na.omit(index)
 					if(length(index2) > 0){
 						#由于部分run缺失，导致样本无法进行run合并，删除样本对应剩余的run
 						fastq1 <- paste(fastqFiles1[index2], collapse = " ")
 						fastq2 <- paste(fastqFiles2[index2], collapse = " ")
-						delete.command1 <- paste("rm", fastq1, sep = " ")
-						delete.command2 <- paste("rm", fastq2, sep = " ")
+						system(paste("rm", fastq1, sep = " "))
+						system(paste("rm", fastq2, sep = " "))
 					}
 				}
-				merge.commands <- c(merge.command1,merge.command2)
-				delete.commands <- c(delete.command1,delete.command2)
-				commands <- c(merge.commands,delete.commands)
 			}else{
 				index <- match(run_id, sampleNames)
 				index1 <- which(is.na(index))
 				if(length(index1) == 0 ){
 					fastq <- paste(fastqFiles[index], collapse = " ")
 					merge.command <- paste0("cat ", fastq, " > ", trim_galore_resultDir, "/", x, "_trimmed.fq.gz")
+					system(merge.command)
+
 					#必须删除单独的run的fastq文件
 					delete.command <- paste("rm", fastq, sep = " ")
+					system(delete.command)
 				}else{
 					index2 <- na.omit(index)
 					if(length(index2) > 0){
 						#由于部分run缺失，导致样本无法进行run合并，删除样本对应剩余的run
 						fastq <- paste(fastqFiles[index2], collapse = " ")
-						merge.command <- NULL
-						delete.command <- paste("rm", fastq, sep = " ")
+						system(paste("rm", fastq, sep = " "))
 					}
 				}
-				commands <- c(merge.command,delete.command)
 			}
 		})
 	}
-	writeLines(a,con=outfilepath)
-	return(a)
 }
 mergeFastq(trim_galore_resultDir="/pub6/temp/shijian/trimGalore_result", 
            sampleInfoFile="/pub6/temp/shijian/SRPSampleInfo.RData",
-           outfilepath="/pub6/temp/shijian/NGSCommand/mergeFastq.sh",
 		   paired = TRUE)
-./mergeFastq.sh
