@@ -24,7 +24,6 @@
 #           broad.cutoff = 0.1,
 #           genome=c("hs","mm","ce","dm")[1])
 
-load("D:/Rsources/Project/StudySingleCell/data/SampleInfo.rda")
 FastMACS2 <- function(bamDir,
                   SampleInfo,
                   outfilepath,
@@ -44,6 +43,7 @@ FastMACS2 <- function(bamDir,
   # SampleInfo$cellLine
   # SampleInfo$chromState
   
+  # 待处理的bam文件以及样本名
   bamfiles <- list.files(bamDir,pattern = ".sort.bam$",full.names = T)
   sampleNames <- list.files(bamDir,pattern = ".sort.bam$",full.names = F)
   sampleNames <- gsub(".sort.bam$","",sampleNames)
@@ -61,6 +61,7 @@ FastMACS2 <- function(bamDir,
   temp <- merge(treat,control,by="cellLine",all.x=T)
   temp$treatpath <- file.path(bamDir,paste0(temp$treat,".sort.bam"))
   temp$controlpath <- file.path(bamDir,paste0(temp$control,".sort.bam"))
+  
   commands <- c()
   for(i in 1:dim(temp)[1]){
     if(!is.na(temp$control[i])){
