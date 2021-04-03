@@ -105,8 +105,6 @@ Fastbowtie2 <- function(FastqDir,
   return(commands)
 }
 
-samFiles <- list.files("/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",pattern = ".sam$",full.names = T,recursive = T)
-a <- sapply(samFiles,sam2bam)
 
 #' @description  sam to bam and build index for bam
 #' @param samFile .sam文件路径+文件名
