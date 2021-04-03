@@ -71,16 +71,29 @@ make.index(transcriptomeFile="/pub6/temp/shijian/gencode.v37.transcripts.fa.gz",
 ./salmonIndex.sh
 #salmon index -t /pub6/temp/shijian/gencode.v37.transcripts.fa.gz -i /pub6/temp/shijian/salmon_result/gencode.v37.transcripts --type puff -k 31
 
-#salmon alevin -i /pub6/temp/shijian/salmon_result/gencode.v37.transcripts \
-#    -l ISR  \
-#    -1 /pub6/temp/shijian/trimGalore_result/SRS2476507_1_val_1.fq.gz \
-#    -2 /pub6/temp/shijian/trimGalore_result/SRS2476507_2_val_2.fq.gz \
-#    --chromium  \
-#    -p 10 \
-#    -o /pub6/temp/shijian/salmon_result/alevin_result \
-#    --tgMap /pub6/temp/shijian/txTogene.tsv \
-#	–dumpMtx \
-#    --dumpFeatures
+
+#' @description salmon alevin算法进行scRNA-seq read count量化
+#' @author shi jian
+#' salmon alevin -i /pub6/temp/shijian/salmon_result/gencode.v37.transcripts \
+#'    -l ISR  \
+#'    -1 /pub6/temp/shijian/trimGalore_result/SRS2476507_1_val_1.fq.gz \
+#'    -2 /pub6/temp/shijian/trimGalore_result/SRS2476507_2_val_2.fq.gz \
+#'    --chromium  \
+#'    -p 10 \
+#'    -o /pub6/temp/shijian/salmon_result/alevin_result \
+#'    --tgMap /pub6/temp/shijian/txTogene.tsv \
+#'	  –dumpMtx \
+#'    --dumpFeatures
+#'  @param  fastqDir  fastq目录地址
+#'  @param  outfilepath 命令行文件输出地址
+#'  @param is.TrimGalore 是否经过trimgalore处理
+#'  @param pattern 文件匹配模式
+#'  @param protocol alevin 协议 see also {\<salmom alevin>}
+#'  @param index.path 索引路径
+#'  @param outDir 输出目录
+#'  @param tgMap 转录本对应基因信息，第一列转录本id，第二列基因id see alse{\<almom alevin>}
+#'  @param extraParameter 是否加额外参数
+#'  @param threads  进程数
 	
 #' 构建salmon单细胞量化所需的 --tgMap对应的转录本对基因tsv文件	
 #'quant.id              gene.id
@@ -91,12 +104,10 @@ single.ks.quantitation <- function(fastqDir,
                             outfilepath, 
                             is.TrimGalore = T, 
 							pattern = c("fastq.gz$","fq.gz$")[2], 
-							type = c("kallisto", "salmon")[2],
 							protocol=c("--dropseq","--chromiumV3","--chromium","--gemcode","--citeseq","--celseq","--celseq2","--quartzseq2")[3],
 							index.path, 
 							outDir, 
 							tgMap,
-							pairEND=T, 
 							extraParameter = NULL, 
 							threads = 20){
         # 软件运行路径
@@ -113,99 +124,39 @@ single.ks.quantitation <- function(fastqDir,
                     dir.create(outDir)
                 }
         }
-        
-        # 用于指示type参数输出是否有误
-        if(!(type %in% c("kallisto", "salmon"))){
-                stop("请确认输入的type参数是否正确!")
-        }
 		
         commands <- c()
-        # 双末端
-        if(pairEND){
-                paired.fastqfile1 <- list.files(fastqDir, pattern=paste0("_1.", pattern), full.names=TRUE, recursive=F)
-                paired.fastqfile2 <- list.files(fastqDir, pattern=paste0("_2.", pattern), full.names=TRUE, recursive=F)
-                paired.sampleName <- list.files(fastqDir, pattern=paste0("_1.", pattern), full.names=F, recursive=F)  
+        
+		# 双末端
+        paired.fastqfile1 <- list.files(fastqDir, pattern=paste0("_1.", pattern), full.names=TRUE, recursive=F)
+        paired.fastqfile2 <- list.files(fastqDir, pattern=paste0("_2.", pattern), full.names=TRUE, recursive=F)
+        paired.sampleName <- list.files(fastqDir, pattern=paste0("_1.", pattern), full.names=F, recursive=F)  
 				
-                # 衔接trim galore处理结果，获得更准确的样本名
-                if(is.TrimGalore){
-                        paired.sampleName <- gsub(paste0("_1_val_1.", pattern), "", paired.sampleName)
-                }else{
-                        paired.sampleName <- gsub(paste0("_1.", pattern), "", paired.sampleName)
-                }
-                
-                if(type == "salmon"){
-                        # 检查index是否存在且格式是否正确
-                        if(!file.exists(index.path) || (length(grep(".idx$", index.path)) > 0)){
-                                stop(index.path, " 不存在或格式不符合!please check...")
-                        }
-                        
-                        salmon.command <- paste(salmon.path, "alevin -i", index.path, "-p", threads, "-l ISR", "--tgMap",tgMap,protocol,sep = " ")
-                        
-                        # 加入扩展参数
-                        if(!is.null(extraParameter)){
-                                salmon.command <- paste(salmon.command, extraParameter, sep = " ")
-                        }
-                        
-                        for(i in 1:length(paired.sampleName)){
-                                # 构建输出目录
-                                sampleDir <- file.path(outDir, paired.sampleName[i])
-                                if(!dir.exists(sampleDir)){
-                                        dir.create(sampleDir)                                
-                                }
-                                paired.command <- paste(salmon.command, "-1", paired.fastqfile1[i], "-2", paired.fastqfile2[i], "-o", sampleDir, sep = " ")
-                                print(paired.command)
-                                commands <- c(commands,paired.command)
-                        }
-                }
-                
+        # 衔接trim galore处理结果，获得更准确的样本名
+        if(is.TrimGalore){
+            paired.sampleName <- gsub(paste0("_1_val_1.", pattern), "", paired.sampleName)
         }else{
-        # 单末端
-                single.fastqfile <- list.files(fastqDir, pattern=pattern, full.names=TRUE, recursive=F)
-                single.sampleName <- list.files(fastqDir, pattern=pattern, full.names=F, recursive=F)
-                
-                # 衔接trim galore处理结果，获得更准确的样本名
-                if(is.TrimGalore){
-                        single.sampleName <- gsub(paste0("_trimmed.", pattern), "", single.sampleName) 
-                }else{
-                        single.sampleName <- gsub(paste0(".", pattern), "", single.sampleName) 
-                }
-                
-                # salmon定量
-                if(type == "salmon"){
-                        # 检查index是否存在且格式是否正确
-                        if(!file.exists(index.path) || (length(grep(".idx$", index.path)) > 0)){
-                                stop(index.path, " 不存在或格式不符合!please check...")
-                        }
-                        # 平均片段长度
-                        if(is.null(fldMean)){
-                                salmon.command <- paste(salmon.path, "quant -i", index.path, "-p", threads, "-l A", sep = " ")
-                        }else{
-                                salmon.command <- paste(salmon.path, "quant -i", index.path, "-p", threads, "-l A --fldMean", fldMean, sep = " ")
-                        }
-                        # 片段长度方差
-                        if(!is.null(fldSD)){
-                                salmon.command <- paste(salmon.command, "--fldSD", fldSD, sep = " ")
-                        }
-                        # 是否进行偏性矫正
-                        if(is.Bias){
-                                salmon.command <- paste0(salmon.command, " --seqBias --gcBias") 
-                        }
-                        # 加入扩展参数
-                        if(!is.null(extraParameter)){
-                                salmon.command <- paste(salmon.command, extraParameter, sep = " ")
-                        }
-                        for(i in 1:length(single.sampleName)){
-                                # 构建输出目录
-                                sampleDir <- file.path(outDir, single.sampleName[i])
-                                if(!dir.exists(sampleDir)){
-                                        dir.create(sampleDir)                                
-                                }
-                                single.command <- paste(salmon.command, "-r", single.fastqfile[i], "-o", sampleDir, sep = " ")
-                                
-                                print(single.command)                        
-                                commands <- c(commands,single.command)
-                        }
-                }
+            paired.sampleName <- gsub(paste0("_1.", pattern), "", paired.sampleName)
+        }
+        # 检查index是否存在且格式是否正确
+        if(!file.exists(index.path) || (length(grep(".idx$", index.path)) > 0)){
+            stop(index.path, " 不存在或格式不符合!please check...")
+        }
+		
+        salmon.command <- paste(salmon.path, "alevin -i", index.path, "-p", threads, "-l ISR", "--tgMap",tgMap,protocol,sep = " ")
+        # 加入扩展参数
+        if(!is.null(extraParameter)){
+            salmon.command <- paste(salmon.command, extraParameter, sep = " ")
+        }
+        for(i in 1:length(paired.sampleName)){
+            # 构建输出目录
+            sampleDir <- file.path(outDir, paired.sampleName[i])
+            if(!dir.exists(sampleDir)){
+                dir.create(sampleDir)                                
+            }
+            paired.command <- paste(salmon.command, "-1", paired.fastqfile1[i], "-2", paired.fastqfile2[i], "-o", sampleDir, sep = " ")
+            print(paired.command)
+            commands <- c(commands,paired.command)
         }
 		writeLines(commands,con=outfilepath)
 		return(commands) 
@@ -222,4 +173,4 @@ single.ks.quantitation(fastqDir="/pub6/temp/shijian/trimGalore_result",
 					   pairEND=T, 
 					   extraParameter = NULL, 
 					   threads = 20)
-./salmonAlevin.sh	
+./salmonAlevin.sh		
