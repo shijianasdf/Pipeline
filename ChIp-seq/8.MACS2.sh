@@ -14,6 +14,17 @@
 #' @param  isBroad 是否识别宽peaks
 #' @param  broad.cutoff 识别宽peak的阈值
 #' @param  genome 基因组大小
+#' 
+# FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
+#           SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+#           outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Dnase_MACS2.sh",
+#           outDir="/pub6/Temp/sj/GSE77737/DNase-seq/MACS2",
+#           fileType=c("AUTO","BAM","SAM","BED")[2],
+#           isBroad=FALSE, 
+#           broad.cutoff = 0.1,
+#           genome=c("hs","mm","ce","dm")[1])
+
+load("D:/Rsources/Project/StudySingleCell/data/SampleInfo.rda")
 FastMACS2 <- function(bamDir,
                   SampleInfo,
                   outfilepath,
