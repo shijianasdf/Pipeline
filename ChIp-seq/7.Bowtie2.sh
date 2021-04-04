@@ -89,8 +89,8 @@ Fastbowtie2 <- function(FastqDir,
     for(i in 1:length(fastqFiles)){
       runAlign <- paste(runAlign_prefix,"-U",fastqFiles[i],"-S", file.path(outDir,paste0(sampleNames[i],".sam")))
       print(runAlign)
-      commands <- c(commands,runAlign)
       system(runAlign)
+	  commands <- c(commands,runAlign)
     }
     
   }
@@ -108,16 +108,23 @@ Fastbowtie2 <- function(FastqDir,
 
 #' @description  sam to bam and build index for bam
 #' @param samFile .sam文件路径+文件名
+#' @param isDel 是否删除sam文件
 #' @author shi jian
 #' samtools view -S -b -o /pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2/SRS1282565.bam /pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2/SRS1282565.sam
 #' samtools sort /pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2/SRS1282565.bam -o /pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2/SRS1282565.sort.bam
 #' samtools index /pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2/SRS1282565.sort.bam
-sam2bam <- function(samFile){
+sam2bam <- function(samFile,isDel=T){
   print("converting sam to bam ...")
   # samtools view -S -b -o my.bam my.sam
   bamFile <- gsub("\\.sam$", "\\.bam", samFile)
   convCmd <- paste("samtools view -S -b -o", bamFile, samFile)
   system(convCmd)
+  if(isDel){
+	rmCMD <- paste("rm -rf",samFile)
+    system( rmCMD )
+  }else{
+    rmCMD <- NULL
+  }
   # To create index
   print("sorting first ...")
   # samtools sort my.bam -o my.sort.bed
