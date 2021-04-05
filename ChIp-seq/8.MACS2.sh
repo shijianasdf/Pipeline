@@ -82,3 +82,13 @@ FastMACS2 <- function(bamDir,
   writeLines(commands,con=outfilepath)
   return(commands)
 }
+FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",
+                     SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+                     outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Chip_MACS2.sh",
+                     outDir="/pub6/Temp/sj/GSE77737/Chip-seq/MACS2",
+                     fileType=c("AUTO","BAM","SAM","BED")[2],
+                     isBroad=FALSE, 
+                     broad.cutoff = 0.1,
+                     genome=c("hs","mm","ce","dm")[1])
+./Chip_MACS2.sh  2>> Chip_MACS2.log
+
