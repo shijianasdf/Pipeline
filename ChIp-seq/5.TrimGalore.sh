@@ -90,4 +90,4 @@ trimGalore <- function(fastqDir,
 trimGalore(fastqDir = "/pub6/temp/shijian/Fastq", 
            outfilepath = "/pub6/temp/shijian/NGSCommand/trimFastq.sh",
            outDir = "/pub6/temp/shijian/", pairEND = T)
-./trimFastq.sh		   
+./trimFastq.sh 2>> trim.log		   
