@@ -32,7 +32,14 @@ Fastbowtie2(FastqDir="/pub6/Temp/sj/GSE77737/DNase-seq/trimGalore_result",
             is.trimGalore = T,
             isBAM=TRUE,
             threads=24)
-
+FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
+          SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+          outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Dnase_MACS2.sh",
+          outDir="/pub6/Temp/sj/GSE77737/DNase-seq/MACS2",
+          fileType=c("AUTO","BAM","SAM","BED")[2],
+          isBroad=FALSE, 
+          broad.cutoff = 0.1,
+          genome=c("hs","mm","ce","dm")[1])			
 #Chip-seq
 convertSRA2FASTQ(outDir = "/pub6/Temp/sj/GSE77737/Chip-seq/FASTQ", 
                  outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/parallelfastqdump.sh",
@@ -62,6 +69,14 @@ Fastbowtie2(FastqDir="/pub6/Temp/sj/GSE77737/Chip-seq/trimGalore_result",
             is.trimGalore = T,
             isBAM=T,
             threads=24)
+FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",
+          SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+          outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Dnase_MACS2.sh",
+          outDir="/pub6/Temp/sj/GSE77737/Chip-seq/MACS2",
+          fileType=c("AUTO","BAM","SAM","BED")[2],
+          isBroad=FALSE, 
+          broad.cutoff = 0.1,
+          genome=c("hs","mm","ce","dm")[1])				
 
 #RNA-seq
 convertSRA2FASTQ(outDir = "/pub6/Temp/sj/GSE77737/RNA-seq/FASTQ", 
@@ -113,3 +128,4 @@ ks.quantitation(fastqDir="/pub6/Temp/sj/GSE77737/RNA-seq/trimGalore_result",
 transcript2gene.quant(quantDir = "/pub6/Temp/sj/GSE77737/RNA-seq/salmon_result/ExpressionQuatification", 
                       outDir = "/pub6/Temp/sj/GSE77737/RNA-seq/salmon_result/ExpressionQuatification", 
                       type = "salmon", is.RefGencode = T, tx2gene = NULL, countsFromAbundance = "no")
+
