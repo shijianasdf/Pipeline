@@ -13,6 +13,7 @@
 #' @param  fileType 文件类型
 #' @param  isBroad 是否识别宽peaks
 #' @param  broad.cutoff 识别宽peak的阈值
+#' @param  extraParameters 外部参数
 #' @param  genome 基因组大小
 #' @example
 # FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
@@ -22,6 +23,7 @@
 #           fileType=c("AUTO","BAM","SAM","BED")[2],
 #           isBroad=FALSE, 
 #           broad.cutoff = 0.1,
+#           extraParameters = NULL,
 #           genome=c("hs","mm","ce","dm")[1])
 
 
@@ -33,6 +35,7 @@ FastMACS2 <- function(bamDir,
                       fileType=c("AUTO","BAM","SAM","BED")[2],
                       isBroad=FALSE, 
                       broad.cutoff = 0.1,
+					  extraParameters = NULL,
                       genome=c("hs","mm","ce","dm")[1]){
   #macs2 callpeak -t SRR1042593.sorted.bam -c SRR1042594.sorted.bam  -f BAM -B -g hs -n Xu_MUT_rep1 
   #创建MACS2工作目录
@@ -73,7 +76,10 @@ FastMACS2 <- function(bamDir,
     if(isBroad == T){
       macs2CMD <- paste(macs2CMD_pre,"--broad","--broad-cutoff",broad.cutoff)
     }
-    macs2CMD <-  paste( macs2CMD,"--outdir",file.path(outDir,temp$treat[i]) )
+	if(!is.null(extraParameters)){
+      macs2CMD <- paste(macs2CMD,extraParameters)
+    }
+    macs2CMD <-  paste(macs2CMD,"--outdir",file.path(outDir,temp$treat[i]) )
     print(macs2CMD)
     commands <- c(commands,macs2CMD)
     #system(macs2CMD)
@@ -89,6 +95,7 @@ FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",
                      fileType=c("AUTO","BAM","SAM","BED")[2],
                      isBroad=FALSE, 
                      broad.cutoff = 0.1,
+					 extraParameters = NULL,
                      genome=c("hs","mm","ce","dm")[1])
 ./Chip_MACS2.sh  2>> Chip_MACS2.log
 
