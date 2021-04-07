@@ -36,7 +36,7 @@ Fastbam2bw <- function(bamDir,
     for(i in 1:length(bamFiles)){
       pos <- which(SampleInfo$sample_accession == SampleNames[i])
       bw.name <- paste(SampleNames[i],str_replace_all(SampleInfo$CellLine[pos]," ","."),str_replace_all(SampleInfo$chromState[pos]," ","_") ,sep="_")
-      runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[1],"-o",file.path(outDir,paste0(bw.name,".bw")))
+      runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[i],"-o",file.path(outDir,paste0(bw.name,".bw")))
       if(!is.null(extraParameters)){
 	    runCMD <-paste(runCMD,extraParameters) 
 	  }
