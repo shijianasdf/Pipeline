@@ -16,3 +16,4 @@ mergeBedReadCount <- FastCountBam(bamFilepaths=bamFilepaths,
                                  mode="Union",
                                  singleEnd=T,
                                  ignore.strand=T)
+save(mergeBedReadCount,file="/pub6/Temp/sj/GSE77737/Chip-seq/mergeBed/mergeBedReadCount.rda")
