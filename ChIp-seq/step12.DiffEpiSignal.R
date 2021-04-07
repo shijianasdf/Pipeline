@@ -23,6 +23,7 @@ H3k27AC.SampleInfo <- SampleInfo[pos,]
 H3k27AC.SampleInfo$diseaseStatus[1:4] <- "normal"
 H3k27AC.SampleInfo$diseaseStatus[5:36] <- "tumor"
 rownames(H3k27AC.SampleInfo) <- H3k27AC.SampleInfo$sample_accession
+# 疾病相对于正常样本的差异分析
 library(BioinforR)
 de_re <- DESeq1(counts = rc.ac.matrix,
                 design = H3k27AC.SampleInfo,
