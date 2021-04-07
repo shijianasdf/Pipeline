@@ -25,7 +25,7 @@ Fastbam2bw <- function(bamDir,
     bamFiles <- list.files(bamDir,pattern = pattern,full.names = T,recursive = T) 
     SampleNames <- list.files(bamDir,pattern = pattern,full.names = F,recursive = T) 
     library(stringr)
-    SampleNames <- str_split(sampleNames,"\\.",simplify = T)[,1]
+    SampleNames <- str_split(SampleNames,"\\.",simplify = T)[,1]
     SampleInfo <- get(load(SampleInfo))
     
     if(!file.exists(outDir)){
@@ -38,7 +38,7 @@ Fastbam2bw <- function(bamDir,
       bw.name <- paste(SampleNames[i],str_replace_all(SampleInfo$CellLine[pos]," ","."),str_replace_all(SampleInfo$chromState[pos]," ","_") ,sep="_")
       runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[i],"-o",file.path(outDir,paste0(bw.name,".bw")))
       if(!is.null(extraParameters)){
-	    runCMD <-paste(runCMD,extraParameters) 
+	    runCMD <- paste(runCMD,extraParameters) 
 	  }
 	  commands <- c(commands,runCMD)
     }
@@ -49,7 +49,7 @@ Fastbam2bw <- function(bamDir,
 }
 Fastbam2bw(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
                    SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
-                   outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/DNasebam2bw1.sh",
+                   outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/DNasebam2bw.sh",
                    outDir="/pub6/Temp/sj/GSE77737/DNase-seq/GenomeBrowser",
                    bin=25,
                    type=c("RPKM","CPM","BPM","RPGC","None")[1],
