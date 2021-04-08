@@ -1,7 +1,5 @@
 #' @description pipeline执行文件
 #' @author shi jian
-#' 
-#' 
 
 #DNase-seq
 convertSRA2FASTQ(outDir = "/pub6/Temp/sj/GSE77737/DNase-seq/FASTQ", 
@@ -39,7 +37,22 @@ FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
           fileType=c("AUTO","BAM","SAM","BED")[2],
           isBroad=FALSE, 
           broad.cutoff = 0.1,
-          genome=c("hs","mm","ce","dm")[1])			
+          genome=c("hs","mm","ce","dm")[1])	
+FastbedGraph2BigWig(bdgDir="/pub6/Temp/sj/GSE77737/DNase-seq/MACS2",
+                    fetchChromSizes = NULL,
+                    outDir="/pub6/Temp/sj/GSE77737",
+                    ref=c("hg19","hg38")[2],
+                    outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Dase_bdg2bigwig.sh",
+                    pattern=".bdg$")
+Fastbam2bw(bamDir="/pub6/Temp/sj/GSE77737/DNase-seq/Bowtie2",
+                   SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+                   outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/DNasebam2bw.sh",
+                   outDir="/pub6/Temp/sj/GSE77737/DNase-seq/GenomeBrowser",
+                   bin=25,
+                   type=c("RPKM","CPM","BPM","RPGC","None")[1],
+                   threads="max",
+				   extraParameters=NULL,
+                   pattern=".sort.bam$")					
 #Chip-seq
 convertSRA2FASTQ(outDir = "/pub6/Temp/sj/GSE77737/Chip-seq/FASTQ", 
                  outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/parallelfastqdump.sh",
@@ -76,7 +89,22 @@ FastMACS2(bamDir="/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",
           fileType=c("AUTO","BAM","SAM","BED")[2],
           isBroad=FALSE, 
           broad.cutoff = 0.1,
-          genome=c("hs","mm","ce","dm")[1])				
+          genome=c("hs","mm","ce","dm")[1])	
+FastbedGraph2BigWig(bdgDir="/pub6/Temp/sj/GSE77737/Chip-seq/MACS2",
+                    fetchChromSizes = "/pub6/Temp/sj/GSE77737/hg38.chrom.sizes",
+                    outDir=NULL,
+                    ref=c("hg19","hg38")[2],
+                    outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Chip_bdg2bigwig.sh",
+                    pattern=".bdg$")
+Fastbam2bw(bamDir="/pub6/Temp/sj/GSE77737/Chip-seq/Bowtie2",
+                   SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
+                   outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Chipbam2bw.sh",
+                   outDir="/pub6/Temp/sj/GSE77737/Chip-seq/GenomeBrowser",
+                   bin=25,
+                   type=c("RPKM","CPM","BPM","RPGC","None")[1],
+                   threads="max",
+				   extraParameters=NULL,
+                   pattern=".sort.bam$")					
 
 #RNA-seq
 convertSRA2FASTQ(outDir = "/pub6/Temp/sj/GSE77737/RNA-seq/FASTQ", 
