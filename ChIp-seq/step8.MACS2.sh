@@ -2,7 +2,7 @@
 #' @author shi jian
 #' 
 #' macs2 callpeak -t SRR1042593.sorted.bam -c SRR1042594.sorted.bam  -f BAM -B -g hs -n Xu_MUT_rep1 
-#' parameters -t 实验组 -c 对照组 -f:c("AUTO","BAM","SAM","BED",...) -g:c("hs","mm","ce","dm"),-B:是否返回类似bigwig那种可视化信号文件
+#' parameters -t 实验组 -c 对照组 -f:c("AUTO","BAM","SAM","BED","BAMPE"...) -g:c("hs","mm","ce","dm"),-B:是否返回类似bigwig那种可视化信号文件
 #'            --outdir:输出结果目录  -n:项目名字 -q -p --broad:宽peak --broad-cutoff:
 #' 
 #' @param  bamDir bowtie比对，samtools sort之后的sort.bam目录地址
@@ -10,7 +10,7 @@
 #'         需要3列：SRSid sample_accession，表观修饰类型(chromState)，以及细胞系类型(CellLine)
 #' @param  outfilepath .sh输出路径
 #' @param  outDir MACS2工作目录
-#' @param  fileType 文件类型
+#' @param  fileType 文件类型  单末端使用BAM，双末端使用BAMPE
 #' @param  isBroad 是否识别宽peaks
 #' @param  broad.cutoff 识别宽peak的阈值
 #' @param  extraParameters 外部参数
@@ -20,7 +20,7 @@
 #           SampleInfo="/pub6/Temp/sj/GSE77737/SampleInfo.rda",
 #           outfilepath="/pub6/Temp/sj/GSE77737/NGScommands/Dnase_MACS2.sh",
 #           outDir="/pub6/Temp/sj/GSE77737/DNase-seq/MACS2",
-#           fileType=c("AUTO","BAM","SAM","BED")[2],
+#           fileType=c("AUTO","BAM","SAM","BED","BAMPE")[2],
 #           isBroad=FALSE, 
 #           broad.cutoff = 0.1,
 #           extraParameters = NULL,
@@ -32,7 +32,7 @@ FastMACS2 <- function(bamDir,
                       SampleInfo,
                       outfilepath,
                       outDir,
-                      fileType=c("AUTO","BAM","SAM","BED")[2],
+                      fileType=c("AUTO","BAM","SAM","BED","BAMPE")[2],
                       isBroad=FALSE, 
                       broad.cutoff = 0.1,
 					  extraParameters = NULL,
@@ -44,6 +44,7 @@ FastMACS2 <- function(bamDir,
   }
   #导入SRR注释大表,需要SRRid，染色质信号种类（H3K27AC等），细胞系
   SampleInfo <- get(load(SampleInfo))
+  # SampleInfo$sample_accession$run_accession
   # SampleInfo$sample_accession
   # SampleInfo$cellLine
   # SampleInfo$chromState
@@ -54,13 +55,22 @@ FastMACS2 <- function(bamDir,
   library(stringr)
   sampleNames <- as.character(str_split(sampleNames,"\\.",simplify=T)[,1])
 
-  # 根据注释文件的"sample_accession","CellLine","chromState"以及待分析样本的sampleNames
+  # 根据注释文件的"run_accession","sample_accession","CellLine","chromState"以及待分析样本的sampleNames
   # 找到MACS 所需的实验组和对照组样本，并做成表格形式
-  exc_SampleInfo <- SampleInfo[SampleInfo$sample_accession %in% sampleNames,]
-  control <- exc_SampleInfo[grep("input",exc_SampleInfo$chromState),c("sample_accession","CellLine","chromState")]
-  colnames(control) <- c("contrl","CellLine","control.chromState")
-  treat <- exc_SampleInfo[!grepl("input",exc_SampleInfo$chromState),c("sample_accession","CellLine","chromState")]
-  colnames(treat) <- c("treat","CellLine","treat.chromState")
+  if( all(grepl("SRS",sampleNames)) ){
+	exc_SampleInfo <- SampleInfo[SampleInfo$sample_accession %in% sampleNames,]
+    control <- exc_SampleInfo[grep("input",exc_SampleInfo$chromState),c("sample_accession","CellLine","chromState")]
+    colnames(control) <- c("contrl","CellLine","control.chromState")
+    treat <- exc_SampleInfo[!grepl("input",exc_SampleInfo$chromState),c("sample_accession","CellLine","chromState")]
+    colnames(treat) <- c("treat","CellLine","treat.chromState")
+  }else{
+    exc_SampleInfo <- SampleInfo[SampleInfo$run_accession %in% sampleNames,]
+    control <- exc_SampleInfo[grep("input",exc_SampleInfo$chromState),c("run_accession","CellLine","chromState")]
+    colnames(control) <- c("contrl","CellLine","control.chromState")
+    treat <- exc_SampleInfo[!grepl("input",exc_SampleInfo$chromState),c("run_accession","CellLine","chromState")]
+    colnames(treat) <- c("treat","CellLine","treat.chromState")
+  }
+  
   temp <- merge(treat,control,by="CellLine",all.x=T)
   temp$treatpath <- file.path(bamDir,paste0(temp$treat,".sort.bam"))
   temp$controlpath <- file.path(bamDir,paste0(temp$contrl,".sort.bam"))
