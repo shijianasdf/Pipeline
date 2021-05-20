@@ -17,7 +17,7 @@ Fastbam2bw <- function(bamDir,
                    outfilepath,
                    outDir,
                    bin,
-                   type=c("RPKM","CPM","BPM","RPGC","None"),
+                   type=c("RPKM","CPM","BPM","RPGC","None")[1],
                    threads="max",
 				   extraParameters=NULL,
                    pattern=".sort.bam$"){
@@ -34,13 +34,24 @@ Fastbam2bw <- function(bamDir,
     
     commands <- c()
     for(i in 1:length(bamFiles)){
-      pos <- which(SampleInfo$sample_accession == SampleNames[i])
-      bw.name <- paste(SampleNames[i],str_replace_all(SampleInfo$CellLine[pos]," ","."),str_replace_all(SampleInfo$chromState[pos]," ","_") ,sep="_")
-      runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[i],"-o",file.path(outDir,paste0(bw.name,".bw")))
-      if(!is.null(extraParameters)){
-	    runCMD <- paste(runCMD,extraParameters) 
+	  if( all(grepl("SRS",SampleNames)) ){
+		  pos <- which(SampleInfo$sample_accession == SampleNames[i])
+		  bw.name <- paste(SampleNames[i],str_replace_all(SampleInfo$CellLine[pos]," ","."),str_replace_all(SampleInfo$chromState[pos]," ","_") ,sep="_")
+		  runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[i],"-o",file.path(outDir,paste0(bw.name,".bw")))
+		  if(!is.null(extraParameters)){
+			runCMD <- paste(runCMD,extraParameters) 
+		  }
+		  commands <- c(commands,runCMD)
+	  }else{
+		  pos <- which(SampleInfo$run_accession == SampleNames[i])
+		  bw.name <- paste(SampleNames[i],str_replace_all(SampleInfo$CellLine[pos]," ","."),str_replace_all(SampleInfo$chromState[pos]," ","_") ,sep="_")
+		  runCMD <- paste("bamCoverage -bs",bin,"-p",threads,"--normalizeUsing",type,"-b",bamFiles[i],"-o",file.path(outDir,paste0(bw.name,".bw")))
+		  if(!is.null(extraParameters)){
+			runCMD <- paste(runCMD,extraParameters) 
+		  }
+		  commands <- c(commands,runCMD)
 	  }
-	  commands <- c(commands,runCMD)
+      
     }
 
     writeLines(commands,con = outfilepath)
