@@ -5,7 +5,7 @@ fastq-dump --gzip --split-files SRR6232298.sra -O /pub6/temp/shijian/SRP116382
 #'@param inputDir sra文件目录
 #'@param outpath 命令行输出地址
 #'@return 返回所有fastq-dump命令行
-# fastq-dump --gzip --split-files SRR6232298.sra -O /pub6/temp/shijian/SRP116382
+# fastq-dump --gzip --split-files SRR6232298.sra 
 BatchSRA2fastq<- function(inputDir,
                           outDir,
 						  outpath,
