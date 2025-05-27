@@ -27,6 +27,8 @@ conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
 #查看已经添加的channels
 conda config --get channels
+#移除所有channals
+conda config --remove-key channels
 #创建名为bioinfo的环境
 conda create -y --name bioinfo python=3 
 conda create -y --name bioinfo python=2
