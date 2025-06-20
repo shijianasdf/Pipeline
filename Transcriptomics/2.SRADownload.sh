@@ -28,3 +28,5 @@ BatchDownloadAspera<- function(SRRTable,outDir,outpath){
 }
 BatchDownloadAspera("D:/Rsources/Project/StudySingleCell/data/SRR_Acc_List.txt","/pub6/temp/shijian/SRP116382","D:/Rsources/Project/StudySingleCell/data/aspera.sh")
 ./aspera.sh
+
+# linux下载数据md5检查
