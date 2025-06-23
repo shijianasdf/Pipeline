@@ -2,7 +2,7 @@
 # prefetch下载 
 prefetch --ascp-path "/pub6/temp/shijian/miniconda3/pkgs/aspera-cli-3.7.7-0/bin/ascp|/pub6/temp/shijian/miniconda3/pkgs/aspera-cli-3.7.7-0/etc/asperaweb_id_dsa.openssh" --option-file /pub6/temp/shijian/SRR_Acc_List1.txt -O /pub6/temp/shijian/SRP116382
 prefetch --option-file /pub6/temp/shijian/SRR_Acc_List1.txt -O /pub6/temp/shijian/SRP116382
-prefetch --option-file /pub6/temp/shijian/SRR_Acc_List1.txt --max-size 100000000 --ascp-path "/home/shijian/miniconda3/bin/ascp|/home/shijian/miniconda3/etc/asperaweb_id_dsa.openssh" 
+prefetch --option-file /pub6/temp/shijian/SRR_Acc_List.txt --max-size 100000000 --ascp-path "/home/shijian/miniconda3/bin/ascp|/home/shijian/miniconda3/etc/asperaweb_id_dsa.openssh" 
 
 # aspera下载(目前不稳定)
 /pub5/xiaoyun/Software/aspera/connect/bin/ascp -i /pub5/xiaoyun/Software/aspera/connect/etc/asperaweb_id_dsa.openssh -QT -l300m anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/SRR/SRR713/SRR7138443/SRR7138443.sra /pub6/temp/shijian/SRP116382 
