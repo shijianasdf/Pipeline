@@ -86,7 +86,9 @@ rm -rf /home/shijian2015/miniconda3
 wget https://download.asperasoft.com/download/sw/connect/3.9.1/ibm-aspera-connect-3.9.1.171801-linux-g2.12-64.tar.gz
 tar zxvf ibm-aspera-connect-3.9.1.171801-linux-g2.12-64.tar.gz
 bash ibm-aspera-connect-3.9.1.171801-linux-g2.12-64.sh
-
+#查找ascp和ascp密匙
+find ~ -type f -name "ascp"
+find ~ -type f -name "asperaweb_id_dsa.openssh"
 #加入环境路径
 echo 'export PATH=$PATH:~/.aspera/connect/bin' >> ~/.bash_profile
 source ~/.bash_profile
