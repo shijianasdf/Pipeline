@@ -73,7 +73,7 @@ conda install bedops macs2 samtools
 conda install gatk gatk4 picard
 conda install subread
 conda install strelka 
-conda install -c hcc aspera-cli #conda安装aspera-cli，不含密匙
+conda install -c hcc aspera-cli #conda安装aspera-cli，不含密匙，需要下载Aspera Connect来获取密匙
 conda install meme homer
 conda install kallisto
 conda install -c bioconda cutadapt
