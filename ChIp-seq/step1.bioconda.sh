@@ -6,6 +6,10 @@ mv Miniconda3-latest-Linux-x86_64.sh /pub6/temp/shijian/
 cd /pub6/temp/shijian
 bash Miniconda3-latest-Linux-x86_64.sh
 source ~/.bashrc　
+#下载安装3.10版本miniconda（稳定版）
+wget https://repo.anaconda.com/miniconda/Miniconda3-py310_24.1.2-0-Linux-x86_64.sh
+bash Miniconda3-py310_24.1.2-0-Linux-x86_64.sh
+source ~/.bashrc
 
 #来查看已经安装的软件
 conda --version
