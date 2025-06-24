@@ -30,6 +30,8 @@ conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/conda-for
 conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
+#删除channels,vim打开.condark文件
+vim ~/.condark
 #查看已经添加的channels
 conda config --get channels
 #移除所有channals
