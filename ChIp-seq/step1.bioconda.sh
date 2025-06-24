@@ -8,6 +8,7 @@ bash Miniconda3-latest-Linux-x86_64.sh
 source ~/.bashrc　
 
 #来查看已经安装的软件
+conda --version
 conda list
 #添加channels
 conda config --add channels conda-forge　　　
