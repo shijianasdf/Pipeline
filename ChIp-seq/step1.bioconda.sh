@@ -57,7 +57,7 @@ conda update 软件名
 conda remove 软件名
 
 conda install sra-tools
-conda install sra-tools=2.9.6 -y
+conda install sra-tools=3.2.1 -y
 conda install fastqc
 conda install multiqc
 conda install trim-galore
