@@ -81,6 +81,9 @@ conda install -c bioconda cutadapt
 
 #删除miniconda
 rm -rf /home/shijian2015/miniconda3
+rm -rf ~/.conda ~/.condarc ~/.continuum
+nano ~/.bashrc  #找到并删除如下自动添加的初始化段落（通常靠近底部）：
+
 
 #下载安装aspera-connect
 wget https://download.asperasoft.com/download/sw/connect/3.9.1/ibm-aspera-connect-3.9.1.171801-linux-g2.12-64.tar.gz
