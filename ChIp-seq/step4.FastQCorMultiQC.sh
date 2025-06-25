@@ -29,7 +29,7 @@ qualityFASTQ(inputDir="/pub6/temp/shijian/Fastq",
 ./Fastqc.sh
 
 # multiQC整合fastQC生成的fastqc.zip文件 
-multiqc test_7942raw_1_fastqc.zip test_7942raw_2_fastqc.zip -O /pub6/temp/shijian/Multiqc
+multiqc test_7942raw_1_fastqc.zip test_7942raw_2_fastqc.zip -o /pub6/temp/shijian/Multiqc
 
 
 #' @description multiqc质量评估基于fastQC结果
