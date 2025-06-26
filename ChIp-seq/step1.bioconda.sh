@@ -95,3 +95,12 @@ find ~ -type f -name "asperaweb_id_dsa.openssh"
 #加入环境路径
 echo 'export PATH=$PATH:~/.aspera/connect/bin' >> ~/.bash_profile
 source ~/.bash_profile
+
+#安装cell ranger
+tar -xzvf ~/software/cellranger-arc-2.0.2.tar.gz
+tar -xzvf ~/software/cellranger-atac-2.2.0.tar.gz
+tar -xzvf ~/software/cellranger-9.0.1.tar.gz
+tar -xzvf ~/refDate/refdata-gex-GRCh38-2024-A.tar.gz
+export PATH=/home/shijian/software/cellranger-9.0.1:$PATH
+export PATH=/home/shijian/software/cellranger-atac-2.2.0:$PATH
+export PATH=/home/shijian/software/cellranger-arc-2.0.2:$PATH
