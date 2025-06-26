@@ -100,10 +100,10 @@ source ~/.bash_profile
 tar -xzvf ~/software/cellranger-arc-2.0.2.tar.gz
 tar -xzvf ~/software/cellranger-atac-2.2.0.tar.gz
 tar -xzvf ~/software/cellranger-9.0.1.tar.gz
-tar -xzvf ~/refDate/refdata-gex-GRCm39-2024-A.tar.gz
-tar -xzvf ~/refDate/refdata-gex-GRCh38-2024-A.tar.gz
-tar -xzvf ~/refDate/refdata-cellranger-arc-GRCm39-2024-A.tar.gz
-tar -xzvf ~/refDate/refdata-cellranger-arc-GRCh38-2024-A.tar.gz
+tar -xzvf ~/refData/refdata-gex-GRCm39-2024-A.tar.gz
+tar -xzvf ~/refData/refdata-gex-GRCh38-2024-A.tar.gz
+tar -xzvf ~/refData/refdata-cellranger-arc-GRCm39-2024-A.tar.gz
+tar -xzvf ~/refData/refdata-cellranger-arc-GRCh38-2024-A.tar.gz
 export PATH=/home/shijian/software/cellranger-9.0.1:$PATH
 export PATH=/home/shijian/software/cellranger-atac-2.2.0:$PATH
 export PATH=/home/shijian/software/cellranger-arc-2.0.2:$PATH
