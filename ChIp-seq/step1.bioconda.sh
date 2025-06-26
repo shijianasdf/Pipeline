@@ -58,6 +58,7 @@ conda remove 软件名
 
 conda install sra-tools
 conda install sra-tools=3.2.1 -y
+conda install parallel-fastq-dump
 conda install fastqc
 conda install multiqc
 conda install trim-galore
