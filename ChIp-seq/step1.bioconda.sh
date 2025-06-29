@@ -81,7 +81,7 @@ conda install -c bioconda cutadapt
 
 
 #删除miniconda
-rm -rf /home/shijian2015/miniconda3
+rm -rf /home/shijian/miniconda3
 rm -rf ~/.conda ~/.condarc ~/.continuum
 nano ~/.bashrc  #找到并删除如下自动添加的初始化段落（通常靠近底部）：
 
