@@ -32,23 +32,24 @@ cellRanger <- function(outDir,outfilepath,inputDir,
     t.files <- list.files(inputDir, pattern = pattern, full.names = TRUE, recursive = TRUE)
     sampleNames <- list.files(inputDir, pattern = pattern, full.names = F, recursive = TRUE)
     sampleNames <- gsub(".*/", "", sampleNames)
-    sampleNames <- unique(stringr::str_split(sampleNames,"_",simplify = T)[,1])
+    sampleNames <- unique(stringr::str_split(sampleNames,"(?=_S[0-9]+_L[0-9]{3}_R[12]_[0-9]{3}\\.fastq\\.gz$)",simplify = T)[,1])
     
     #创建每个样本具体的输出目录
-    if(!file.exists(outDir)){
+    if(is.null(outDir)){
       stop("please input outDir")
     }
     
-    outDir <- file.path(outDir,sampleNames)
+    #inputDirs <- unique(dirname(t.files))
+    outDirs <- file.path(outDir,sampleNames)
     prefix_command <- "cellranger count --id=mRNA"
     commands <- c()
-    for(i in 1:length(outDir)){
-      if(!file.exists(outDir[i])){
-        dir.create(outDir[i])
+    for(i in 1:length(outDirs)){
+      if(!file.exists(outDirs[i])){
+        dir.create(outDirs[i])
       }
-      t.command <- paste("cd",outDir[i],sep=" ")
+      t.command <- paste("cd",outDirs[i],sep=" ")
       commands <- c(commands,t.command)
-      cellranger.command <- paste0(prefix_command, " --fastqs=", inputDir, " --sample=", 
+      cellranger.command <- paste0(prefix_command, " --fastqs=", inputDir , " --sample=", 
                                    sampleNames[i], " --create-bam=",createBam, " --transcriptome=", ref)
       commands <- c(commands,cellranger.command)
     }
