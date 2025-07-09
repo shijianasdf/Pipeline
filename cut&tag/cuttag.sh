@@ -105,13 +105,16 @@ fi
 # convert to bigwig文件
 bamCoverage -bs 25 -p max --ignoreDuplicates --normalizeUsing RPKM -b $projPath/alignment/bam/${histName}_bowtie2.sort.bam -o $projPath/alignment/bigwig/${histName}_bowtie2.bw
 
-# 8.merge bigwigs and bedgraphs
-bigwigCompare -b1 file1.bw -b2 file2.bw \
+# 8.merge bigwigs and bedgraphs (wiggletools deeptools bedtools)
+bigwigCompare -b1 /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/10_bowtie2.bw -b2 /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/11_bowtie2.bw \
   --operation mean \ #log2,ratio,subtract,add,mean,reciprocal_ratio,first,second
-  -o merged_mean.bw
-
-
-
+  -o /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/temp_merged_mean.bw
+bigwigCompare -b1 /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/10_bowtie2.bw -b2 /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/11_bowtie2.bw \
+  --operation mean \ #log2,ratio,subtract,add,mean,reciprocal_ratio,first,second
+  -o /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bigwig/temp_merged_mean.bw
+  
+wiggletools write merged.bedGraph mean file1.bw file2.bw file3.bw  
+bedGraphToBigWig merged.bedGraph chrom.sizes merged.bw
 
 # 8. SEACR call peak 
 ##== linux command ==##
