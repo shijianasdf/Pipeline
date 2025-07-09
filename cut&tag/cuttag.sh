@@ -116,6 +116,20 @@ bigwigCompare -b1 /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/ali
 wiggletools write merged.bedGraph mean file1.bw file2.bw file3.bw  
 bedGraphToBigWig merged.bedGraph chrom.sizes merged.bw
 
+bedtools unionbedg -i /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/10_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/11_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/12_bowtie2.fragments.normalized.bedgraph > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt 
+awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/H3K9me3_control_merged_mean.bedGraph                     
+
+bedtools unionbedg -i /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/13_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/14_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/15_bowtie2.fragments.normalized.bedgraph > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt 
+awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/H3K9me3_case_merged_mean.bedGraph                     
+                      
+bedtools unionbedg -i /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/16_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/17_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/18_bowtie2.fragments.normalized.bedgraph > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt 
+awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/H3K27me2_control_merged_mean.bedGraph                     
+  
+bedtools unionbedg -i /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/19_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/20_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/21_bowtie2.fragments.normalized.bedgraph > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt 
+awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/merged.txt > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment/bedgraph/H3K27me2_case_merged_mean.bedGraph                      
+
+
+
 # 8. SEACR call peak 
 ##== linux command ==##
 #seacr="/home/shijian/software/SEACR/SEACR_1.3.sh"
