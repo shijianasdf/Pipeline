@@ -105,6 +105,13 @@ fi
 # convert to bigwig文件
 bamCoverage -bs 25 -p max --ignoreDuplicates --normalizeUsing RPKM -b $projPath/alignment/bam/${histName}_bowtie2.sort.bam -o $projPath/alignment/bigwig/${histName}_bowtie2.bw
 
+# 8.merge bigwigs and bedgraphs
+bigwigCompare -b1 file1.bw -b2 file2.bw \
+  --operation mean \ #log2,ratio,subtract,add,mean,reciprocal_ratio,first,second
+  -o merged_mean.bw
+
+
+
 
 # 8. SEACR call peak 
 ##== linux command ==##
@@ -115,3 +122,7 @@ bamCoverage -bs 25 -p max --ignoreDuplicates --normalizeUsing RPKM -b $projPath/
 #     $projPath/alignment/bedgraph/${histControl}_bowtie2.fragments.normalized.bedgraph \
 #     non stringent $projPath/peakCalling/SEACR/${histName}_seacr_control.peaks
 #bash $seacr $projPath/alignment/bedgraph/${histName}_bowtie2.fragments.normalized.bedgraph 0.01 non stringent $projPath/peakCalling/SEACR/${histName}_seacr_top0.01.peaks
+
+
+
+
