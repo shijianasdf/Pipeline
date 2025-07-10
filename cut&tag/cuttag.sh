@@ -130,16 +130,24 @@ awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /
 
 
 
-# 8. SEACR call peak 
+# 9. SEACR call peak 
 ##== linux command ==##
-#seacr="/home/shijian/software/SEACR/SEACR_1.3.sh"
+seacr="/home/shijian/software/SEACR/SEACR_1.3.sh"
 #histControl=$2
-#mkdir -p $projPath/peakCalling/SEACR
-#bash $seacr $projPath/alignment/bedgraph/${histName}_bowtie2.fragments.normalized.bedgraph \
-#     $projPath/alignment/bedgraph/${histControl}_bowtie2.fragments.normalized.bedgraph \
-#     non stringent $projPath/peakCalling/SEACR/${histName}_seacr_control.peaks
-#bash $seacr $projPath/alignment/bedgraph/${histName}_bowtie2.fragments.normalized.bedgraph 0.01 non stringent $projPath/peakCalling/SEACR/${histName}_seacr_top0.01.peaks
+mkdir -p $projPath/peakCalling/SEACR
+bash $seacr $projPath/alignment/bedgraph/H3K9me3_case_merged_mean.bedGraph \
+     $projPath/alignment/bedgraph/H3K9me3_control_merged_mean.bedGraph \
+     norm stringent $projPath/peakCalling/SEACR/H3K9me3_seacr.peaks
+bash $seacr $projPath/alignment/bedgraph/H3K27me2_case_merged_mean.bedGraph \
+     $projPath/alignment/bedgraph/H3K27me2_control_merged_mean.bedGraph \
+     norm stringent $projPath/peakCalling/SEACR/H3K27me2_seacr.peaks 
 
+bash $seacr $projPath/alignment/bedgraph/H3K9me3_case_merged_mean.bedGraph \
+     $projPath/alignment/bedgraph/H3K9me3_control_merged_mean.bedGraph \
+     norm relaxed $projPath/peakCalling/SEACR/H3K9me3_seacr.peaks
+bash $seacr $projPath/alignment/bedgraph/H3K27me2_case_merged_mean.bedGraph \
+     $projPath/alignment/bedgraph/H3K27me2_control_merged_mean.bedGraph \
+     norm relaxed $projPath/peakCalling/SEACR/H3K27me2_seacr.peaks
 
 
 
