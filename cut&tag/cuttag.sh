@@ -43,7 +43,7 @@ mkdir -p ${projPath}/alignment/bigwig
 ## Build the bowtie2 reference genome index if needed:
 mkdir -p ~/refData/bowtie2Index
 bowtie2-build ~/refData/GRCm39.genome.fa.gz ~/refData/bowtie2Index/GRCm39.genome.mm
-bowtie2 --end-to-end --very-sensitive --no-mixed --no-discordant --phred33 -I 10 -X 700 -p ${cores} -x ${ref} -1 ${projPath}/cutadapt/${histName}/${histName}_trimmed_R1.fastq.gz -2 ${projPath}/cutadapt/${histName}/${histName}_trimmed_R2.fastq.gz -S ${projPath}/alignment/sam/${histName}_bowtie2.sam &> ${projPath}/alignment/sam/bowtie2_summary/${histName}_bowtie2.txt
+bowtie2 --local --very-sensitive --no-mixed --no-discordant --phred33 -I 10 -X 700 -p ${cores} -x ${ref} -1 ${projPath}/cutadapt/${histName}/${histName}_trimmed_R1.fastq.gz -2 ${projPath}/cutadapt/${histName}/${histName}_trimmed_R2.fastq.gz -S ${projPath}/alignment/sam/${histName}_bowtie2.sam &> ${projPath}/alignment/sam/bowtie2_summary/${histName}_bowtie2.txt
 # 5.对 spike-in 基因组进行校准，以进行 spike-in 校准（可选 / 推荐）
 spikeInRef="/home/shijian/refData/bowtie2Index/Ecoli"
 chromSize="/home/shijian/refData/mm39.chrom.sizes"
