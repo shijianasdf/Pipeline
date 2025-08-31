@@ -17,3 +17,5 @@ mergeBedReadCount <- FastCountBam(bamFilepaths=bamFilepaths,
                                  singleEnd=T,
                                  ignore.strand=T)
 save(mergeBedReadCount,file="/pub6/Temp/sj/GSE77737/Chip-seq/mergeBed/mergeBedReadCount.rda")
+
+#也可以使用featureCount或者bedtools进行peak内read count定量再用DESeq2做差异分析，也可以使用Diffbind（统计read count+差异整合到一个软件）
