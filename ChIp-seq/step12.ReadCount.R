@@ -19,3 +19,10 @@ mergeBedReadCount <- FastCountBam(bamFilepaths=bamFilepaths,
 save(mergeBedReadCount,file="/pub6/Temp/sj/GSE77737/Chip-seq/mergeBed/mergeBedReadCount.rda")
 
 #也可以使用featureCount (Subread)或者bedtools multicov 或者 deepTools (multiBamSummary)进行peak内read count定量再用DESeq2做差异分析，也可以使用Diffbind（统计read count+差异整合到一个软件）
+bedtools multicov -bams /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/28_bowtie2.sort.bam \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/29_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/30_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/31_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/32_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/33_bowtie2.sort.bam -bed  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/peakCalling/kdm7a_macs2_out1/Kdm7a_peaks.narrowPeak > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/peakCalling/kdm7a_macs2_out1/Kdm7a_counts1.txt
