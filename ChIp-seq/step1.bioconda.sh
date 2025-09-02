@@ -81,9 +81,13 @@ conda install kallisto
 conda install -c bioconda cutadapt
 
 #服务器用conda配置R环境（各种版本）
+#R 4.3.3 是目前最稳妥、最推荐的版本，用来做单细胞、ChIP-seq、RNA-seq 都没有问题。
+#如果你想“尝鲜”，可以装 R 4.4.x，但要注意可能会遇到依赖兼容性问题。
 conda search r-base #首先查看都有哪些版本的R
 conda create -p /data/shijian/software/envs/R_env_4.5.1 r-base=4.5.1 #用conda创建并安装指定版本和环境位置的R
 conda activate /data/shijian/software/envs/R_env_4.5.1 #激活该conda环境
+conda create -p /data/shijian/software/envs/R_env_4.3.3 r-base=4.3.3
+conda activate /data/shijian/software/envs/R_env_4.3.3
 conda install -c conda-forge r-essentials #安装R包
 conda install -c conda-forge r-tidyverse 
 R
