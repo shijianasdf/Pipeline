@@ -80,6 +80,13 @@ conda install meme homer
 conda install kallisto
 conda install -c bioconda cutadapt
 
+#服务器用conda配置R环境（各种版本）
+conda search r-base #首先查看都有哪些版本的R
+conda create -p /data/shijian/software/envs/R_env_4.5.1 r-base=4.5.1 #用conda创建并安装指定版本和环境位置的R
+conda activate /data/shijian/software/envs/R_env_4.5.1 #激活该conda环境
+conda install -c conda-forge r-essentials #安装R包
+conda install -c conda-forge r-tidyverse 
+R
 
 #删除miniconda
 rm -rf /home/shijian/miniconda3
