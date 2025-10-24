@@ -129,7 +129,14 @@ awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /
 bedtools unionbedg -i /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/19_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/20_bowtie2.fragments.normalized.bedgraph /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/21_bowtie2.fragments.normalized.bedgraph > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/merged.txt 
 awk '{sum=0; for(i=4;i<=NF;i++) sum+=$i; $4=sum/(NF-3); print $1, $2, $3, $4}' /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/merged.txt > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-25/alignment1/bedgraph/H3K27me2_case_merged_mean.bedGraph                      
 
-
+# 利用bedtools量化每个样本peak区间的read counts
+bedtools multicov -bams /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/34_bowtie2.sort.bam \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/35_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/36_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/37_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/38_bowtie2.sort.bam  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/alignment/bam/39_bowtie2.sort.bam -bed  \
+/data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/peakCalling/macs2_out4/H3k4me3_peaks.narrowPeak > /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-30/peakCalling/macs2_out4/H3k4me3_counts.txt
 
 # 9. SEACR call peak 
 ##== linux command ==##
