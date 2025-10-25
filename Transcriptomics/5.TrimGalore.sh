@@ -50,7 +50,7 @@ trimGalore <- function(fastqDir,
         # 建立输出目录
         outDir <- file.path(outDir, "trimGalore_result")
         if(!dir.exists(outDir)){
-            dir.create(outDir)
+            dir.create(outDir, recursive = T)
         }
 		
         # 主要参数设置
