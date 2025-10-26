@@ -14,13 +14,13 @@
 #' -m intersection-nonempty \ default: union 设置表达量计算模式。该参数的值可以有union, intersection-strict and intersection-nonempty。这三种模式的选择请见上面对这3种模式的示意图。从图中可知，对于原核生物，推荐使用intersection-strict模式；对于真核生物，推荐使用union模式。
 #' yourfile_name.bam /Users/shijian/mydata/bulkRNA/0.reference/gencode.v38.chr_patch_hapl_scaff.annotation.gtf > counts.txt
 runHTSEQ <- function(bamDir,
-                     #sampleInfo,
+                     pattern = "sortedByCoord.out.bam$",
                      strand=c("yes","no","reverse")[1],
                      gtf.path,
                      out.dir,
                      outfilepath){
   library(stringr)
-  bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = ".bam$")
+  bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = pattern)
   #bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = ".bam$")
   patients <- str_split(dirname(bamfiles),"/",simplify = T)[,dim(str_split(dirname(bamfiles),"/",simplify = T))[2]]
   if(!file.exists(out.dir))
