@@ -84,9 +84,13 @@ runStar <- function(fastqDir,
     dir <- file.path(outDir,sampleInfo$sample[i])
     if(!file.exists(dir))
       dir.create(dir,recursive = T)
+    # tempcommand <- paste0(command,sampleInfo$fastq1[i]," ",sampleInfo$fastq2[i],
+    #                       " --readFilesCommand gzcat --outSAMtype BAM SortedByCoordinate --outFileNamePrefix ",  
+    #                       paste0(dir,"/",sampleInfo$sample[i]))  macos 是gzcat
     tempcommand <- paste0(command,sampleInfo$fastq1[i]," ",sampleInfo$fastq2[i],
-                          " --readFilesCommand gzcat --outSAMtype BAM SortedByCoordinate --outFileNamePrefix ",
-                          paste0(dir,"/",sampleInfo$sample[i]))
+                          " --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outFileNamePrefix ",  
+                          paste0(dir,"/",sampleInfo$sample[i])) #linux是zcat
+    
     commands <- c(commands,tempcommand)
   }
   writeLines(commands,con = outfilepath)  
