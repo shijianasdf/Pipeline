@@ -1,6 +1,7 @@
 #' @description  HTSEQ pipeline
 #' @author  shijian
 #' @param bamDir bam文件夹
+#' @param pattern "sortedByCoord.out.bam$"
 #' @param strand=c("yes","no","reverse")[1] 链特异性信息
 #' @param gtf.path gtf注释文件路径
 #' @param out.dir 输出结果路径
