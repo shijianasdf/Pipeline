@@ -61,6 +61,42 @@ starRes <- runStar(sampleInfo=sampleInfo,
 #bash /Users/shijian/mydata/bulkRNA/star.sh > log.txt &
 
 
+#' 升级了
+runStar <- function(fastqDir,
+                    pattern = "fq.gz",
+                    index,
+                    outfilepath,
+                    outDir){
+  library(dplyr)
+  fastqfiles <- list.files(fastqDir,full.names = T,recursive = T,pattern = pattern)
+  fastqnames <- list.files(fastqDir,recursive = T,pattern = pattern)
+  fastq1 <- fastqfiles[seq(1,length(fastqfiles),by=2)] #奇数
+  fastq2 <- fastqfiles[seq(2,length(fastqfiles),by=2)] #偶数
+  sample <- stringr::str_split(fastqnames[seq(1,length(fastqfiles),by=2)],"_",simplify = T)[,1]
+  #生成sampleInfo
+  sampleInfo <- data.frame(sample=sample,fastq1=fastq1,fastq2=fastq2)
+  #列名重命名
+  #sampleInfo <- sampleInfo[,c(sample,fastq1,fastq2)] 
+  #colnames(sampleInfo) <- c("sample","fastq1","fastq2")
+  commands <- c()
+  command <- paste0("STAR --runThreadN 10 --genomeDir ", index ," --twopassMode Basic --quantMode TranscriptomeSAM GeneCounts --readFilesIn ")
+  for(i in 1:length(sampleInfo$sample)){
+    dir <- file.path(outDir,sampleInfo$sample[i])
+    if(!file.exists(dir))
+      dir.create(dir,recursive = T)
+    tempcommand <- paste0(command,sampleInfo$fastq1[i]," ",sampleInfo$fastq2[i],
+                          " --readFilesCommand gzcat --outSAMtype BAM SortedByCoordinate --outFileNamePrefix ",
+                          paste0(dir,"/",sampleInfo$sample[i]))
+    commands <- c(commands,tempcommand)
+  }
+  writeLines(commands,con = outfilepath)  
+  return(list(commands=commands,sampleInfo=sampleInfo))
+}
+starRes <- runStar(fastqDir = "/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/3.trimGalore/trimGalore_result",
+                   index="/data/shijian/refData/mouse_reference/mouse_index/star.index",
+                   outfilepath="/data/shijian/project/NGSCommand/star.sh",
+                   outDir="/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/5.star_bam")
+
 #'star比对后没有bam文件的索引,需要利用samtools先建立索引,因为后续htseq-count会利用索引
 #'循环执行samtools index SRR11050949Aligned.sortedByCoord.out.bam >
 runSamtools <- function(bamDir,
