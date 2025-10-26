@@ -61,7 +61,7 @@ starRes <- runStar(sampleInfo=sampleInfo,
 #bash /Users/shijian/mydata/bulkRNA/star.sh > log.txt &
 
 
-#' 升级了
+#' 升级了，对上面那版有改进，更简单
 runStar <- function(fastqDir,
                     pattern = "fq.gz",
                     index,
