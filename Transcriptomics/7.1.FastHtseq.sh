@@ -57,3 +57,31 @@ runHTSEQ <- function(bamDir,
 #                     outfilepath="/Users/shijian/mydata/bulkRNA/htseq.sh")
 # list.files("/Users/shijian/mydata/bulkRNA/3.bam",full.names = T,recursive = T,pattern = ".bam$")
 #bash /Users/shijian/mydata/bulkRNA/htseq.sh > log.txt &
+
+#' @description
+#' htseq-count 聚合每个样本的表达成为最终的表达矩阵
+#' @author shi jian
+AggregateHTseq <- function(inputDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/6.counts1"){
+  library(data.table)
+  library(dplyr)
+  filepaths <- list.files(path=inputDir,recursive = T,full.names = T) 
+  sample_names <- stringr::str_split(basename(filepaths),pattern = "\\.",simplify = T)[,1]
+  temp <- fread(filepaths[1])
+  temp2 <- fread(filepaths[2])
+  temp3 <- temp %>% bind_cols(.,temp2$V2)
+  temp3 <- temp
+  temp <- c()
+  for(i in 1:length(filepaths)){
+    file_i <- fread(filepaths[i])
+    if( i == 1){
+      temp <- c(temp,file_i)
+    }else{
+      temp <- c(temp,file_i[,2])
+    }
+  }
+  temp <- as.data.frame(temp)
+  temp %>% tibble::column_to_rownames("V1") %>% data.table::setnames(.,old = c("V2","V2.1","V2.2","V2.3","V2.4","V2.5"),
+                                                                     new = sample_names) -> temp1
+  temp2 <- head(temp1,-5)
+  return( temp2 )
+}
