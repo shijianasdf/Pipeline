@@ -61,6 +61,7 @@ runHTSEQ <- function(bamDir,
 #' @description
 #' htseq-count 聚合每个样本的表达成为最终的表达矩阵
 #' @author shi jian
+#' @param inputDir counts文件所在的目录
 AggregateHTseq <- function(inputDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/6.counts1"){
   library(data.table)
   library(dplyr)
