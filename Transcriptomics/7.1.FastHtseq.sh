@@ -1,3 +1,17 @@
+#RSeQC 判断RNA-seq建库类型
+#工作原理
+#该脚本通过统计那些唯一映射到某个基因的某个外显子上的读段，检查这些读段是如何映射的。它特别关注那些映射到有链注释的基因（即明确知道该基因在正链还是反链上）的读段。
+#它会计算两类读段的比例：
+#“1++，1--，2+-，2-+”：读段的方向与基因所在链的方向一致（对应 strand=yes）。
+#“1+-，1-+，2++，2--”：读段的方向与基因所在链的方向相反（对应 strand=reverse）。
+infer_experiment.py -r <bed_file> -i <bam_file>
+#-r 或 --refgene：参考基因模型的BED文件。这是一个关键文件，需要提前准备。
+#-i 或 --input-file：你的 RNA-seq 比对后的 BAM 文件。
+# 假设你有一个gtf to bed文件 <bedops>
+gtf2bed < /data/shijian/refData/mouse_reference/gencode.vM37.chr_patch_hapl_scaff.annotation.gtf > /data/shijian/refData/mouse_reference/gencode.vM37.chr_patch_hapl_scaff.annotation.bed
+infer_experiment.py -r /data/shijian/refData/mouse_reference/gencode.vM37.chr_patch_hapl_scaff.annotation.bed -i /data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/5.star_bam/1/1Aligned.sortedByCoord.out.bam
+
+
 #' @description  HTSEQ pipeline
 #' @author  shijian
 #' @param bamDir bam文件夹
