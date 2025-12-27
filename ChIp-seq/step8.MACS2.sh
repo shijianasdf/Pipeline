@@ -1,4 +1,4 @@
-#' @description  MACS2 call peaks
+#' @description  MACS2 call peaks 标准是一个样本一个样本的call peak，虽然合并起来call peak也是跑的通的
 #' @author shi jian
 #' 
 #' macs2 callpeak -t SRR1042593.sorted.bam -c SRR1042594.sorted.bam  -f BAM -B -g hs -n Xu_MUT_rep1 
