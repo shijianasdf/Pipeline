@@ -1,4 +1,4 @@
-#' @description merge peaks {\bedtools<merge>} 每个样本的peak进行合并，得到一致性peak
+#' @description merge peaks {\bedtools<merge>} 每个样本的peak进行合并，得到一致性peak，merge之前要进行IDR评估准确性
 #' @author  shijian
 #' @usage 
 #' sortBed -i A.bed > sort.bed
