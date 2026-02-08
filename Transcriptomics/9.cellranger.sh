@@ -45,7 +45,7 @@ cellRanger <- function(outDir,outfilepath,inputDir,
       commands <- c()
       for(i in 1:length(outDirs)){
         if(!file.exists(outDirs[i])){
-          dir.create(outDirs[i],recursive = F)
+          dir.create(outDirs[i],recursive = T)
         }
         t.command <- paste("cd",outDirs[i],sep=" ")
         commands <- c(commands,t.command)
