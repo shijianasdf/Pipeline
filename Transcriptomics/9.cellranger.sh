@@ -10,12 +10,12 @@
 #' mkdir SRR10809462
 #' cd SRR10809462
 #' cellranger count --id=mRNA  \
-#' --fastqs=/home/shijian/project/scMutDB/fastq/SRP239174 \
-#' --sample=SRR10809462  \
+#' --fastqs=/home/shijian/project/scMutDB/fastq/SRP239174 \ fastq文件夹地址
+#' --sample=SRR10809462  \  #SRR10809462_S1_L001_R1_001.fastq.gz
 #' --create-bam=true  \
 #' --transcriptome=/home/shijian/refData/refdata-gex-GRCh38-2024-A
 
-cellRanger <- function(outDir,outfilepath,inputDir,
+cellRanger_count <- function(outDir,outfilepath,inputDir,
                          pattern=".fastq.gz$",createBam=c("true","false")[1],
                          ref="/home/shijian/refData/refdata-gex-GRCh38-2024-A"){
     #创建输出目录
