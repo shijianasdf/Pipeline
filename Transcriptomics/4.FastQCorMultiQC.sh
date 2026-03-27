@@ -44,7 +44,7 @@ doMultiQC <- function(inputDir,
 						 pattern=".fastqc.zip$"){
 		files <- list.files(inputDir,pattern = pattern, full.names = TRUE, recursive = TRUE)
 		if(!file.exists(outDir)){
-			dir.create(outDir)
+			dir.create(outDir,recursive=T)
 		}
 		t.files <- paste(files,collapse=" ")
 		command <- paste("multiqc",t.files,"-o",outDir)
