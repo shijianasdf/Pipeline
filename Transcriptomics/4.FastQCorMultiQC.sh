@@ -14,7 +14,7 @@ qualityFASTQ <- function(inputDir,
 						 pattern=".fastq.gz$"){
 	files <- list.files(inputDir,pattern = pattern, full.names = TRUE, recursive = TRUE)
 	if(!file.exists(outDir)){
-		dir.create(outDir)
+		dir.create(outDir,recursive=T)
 	}
 	t.files <- paste(files,collapse=" ")
 	command <- paste("fastqc -t",threads,"-o",outDir,t.files)
