@@ -12,13 +12,14 @@ qualityFASTQ <- function(inputDir,
 						 outfilepath,
 						 threads,
 						 pattern=".fastq.gz$"){
+	library(readr)
 	files <- list.files(inputDir,pattern = pattern, full.names = TRUE, recursive = TRUE)
 	if(!file.exists(outDir)){
 		dir.create(outDir,recursive=T)
 	}
 	t.files <- paste(files,collapse=" ")
 	command <- paste("fastqc -t",threads,"-o",outDir,t.files)
-	writeLines(command,con=outfilepath)
+	write_lines(command,file=outfilepath,append = TRUE)
 	return(command)
 }
 qualityFASTQ(inputDir="/pub6/temp/shijian/Fastq",
@@ -42,13 +43,14 @@ doMultiQC <- function(inputDir,
 						 outfilepath,
 						 threads,
 						 pattern=".fastqc.zip$"){
+		library(readr)
 		files <- list.files(inputDir,pattern = pattern, full.names = TRUE, recursive = TRUE)
 		if(!file.exists(outDir)){
 			dir.create(outDir,recursive=T)
 		}
 		t.files <- paste(files,collapse=" ")
 		command <- paste("multiqc",t.files,"-o",outDir)
-		writeLines(command,con=outfilepath)
+		write_lines(command,file=outfilepath,append = TRUE)
 		return(command)				 						 
 }
 doMultiQC(inputDir="/pub6/temp/shijian/Fastqc",
