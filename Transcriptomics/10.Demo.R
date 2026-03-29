@@ -92,6 +92,7 @@ bash /data/shijian/project/NGSCommand/trimGalore.sh
                   strand.specific = "", 
                   extraParameter = NULL, 
                   threads = 20)
+  nohup bash /data/shijian/project/NGSCommand/salmon.sh > 
   transcript2gene.quant(quantDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/4.salmon_result", 
                         outDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/4.salmon_result/Expressionquantification", 
                         type = "salmon", is.RefGencode = T, tx2gene = NULL, countsFromAbundance = "no")
