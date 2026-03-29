@@ -71,6 +71,7 @@ trimGalore(fastqDir = "/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-1
            outDir = "/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/3.trimGalore",pairEND = T, 
            is.phred33Encoding = TRUE, pattern = "fq.gz", q = 20, 
            length = 20, threads = 20, extraParameter = NULL)
+bash /data/shijian/project/NGSCommand/trimGalore.sh
 # 4. salmon  链特异性和非链特异性的是不一样的，需要管公司要建库方式
 # Salmon 通过 -l 或 --libType 参数来识别您的测序数据是链特异性的哪种类型，从而正确地将reads定位到它们来自的转录本链上。
 # 测序平台/建库套装说明书（比如 Illumina TruSeq Stranded → 1st-strand）
