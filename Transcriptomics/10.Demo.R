@@ -91,7 +91,7 @@ trimGalore(fastqDir = "/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023120019-1
                   strand.specific = "", 
                   extraParameter = NULL, 
                   threads = 20)
-  nohup bash /data/shijian/project/NGSCommand/salmon.sh > 
+  nohup bash /data/shijian/project/NGSCommand/salmon.sh > salmon.log 2>&1 &
   transcript2gene.quant(quantDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/4.salmon_result", 
                         outDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/4.salmon_result/Expressionquantification", 
                         type = "salmon", is.RefGencode = T, tx2gene = NULL, countsFromAbundance = "no")
