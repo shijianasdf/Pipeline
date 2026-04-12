@@ -8,3 +8,6 @@ conda activate epigenetics
 /home/shijian/miniconda3/envs/epigenetics/bin/R
 conda activate R
 /home/shijian/miniconda3/envs/R/bin/R
+
+#查看磁盘空间大小
+df -h
