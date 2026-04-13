@@ -9,5 +9,11 @@ conda activate epigenetics
 conda activate R
 /home/shijian/miniconda3/envs/R/bin/R
 
+#查看linux版本
+hostnamectl
 #查看磁盘空间大小
 df -h
+#清空临时文件夹
+rm -rf /tmp/*
+journalctl --vacuum-time=3d
+
