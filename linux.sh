@@ -14,6 +14,9 @@ hostnamectl
 #查看磁盘空间大小
 df -h
 #清空临时文件夹
-rm -rf /tmp/*
-journalctl --vacuum-time=3d
+sudo rm -rf /tmp/*   cme811811
+sudo journalctl --vacuum-time=3d
+#清空日志文件
+du -sh /var/log
+rm -rf /var/log/*.log
 
