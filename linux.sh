@@ -28,3 +28,6 @@ sudo rm -rf /var/log/*.log
 sudo apt clean
 #已删除但仍占空间
 lsof | grep deleted
+
+# 重点排查区，排查home目录下文件大小
+sudo du -h --max-depth=1 /home | sort -hr
