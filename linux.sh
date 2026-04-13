@@ -14,7 +14,7 @@ hostnamectl
 #查看磁盘结构
 lsblk
 #查看磁盘空间大小
-df -h   #查看磁盘挂载点
+df -h   #查看物理设备和磁盘挂载点
 df -h /
 #清空临时文件夹
 sudo rm -rf /tmp/*   cme811811
