@@ -31,3 +31,5 @@ lsof | grep deleted
 
 # 重点排查区，排查home目录下文件大小
 sudo du -h --max-depth=1 /home | sort -hr
+# 找超大文件
+sudo find / -type f -size +5G
