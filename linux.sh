@@ -33,3 +33,6 @@ lsof | grep deleted
 sudo du -h --max-depth=1 /home | sort -hr
 # 找超大文件
 sudo find / -type f -size +5G
+
+#已删除但仍占空间（高级坑🔥）
+sudo lsof | grep deleted
