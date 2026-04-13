@@ -36,3 +36,8 @@ sudo find / -type f -size +5G
 
 #已删除但仍占空间（高级坑🔥）
 sudo lsof | grep deleted
+
+#为用户在/data目录下创造私有空间
+sudo mkdir /data/xiewanhua
+sudo chown xiewanhua:xiewanhua /data/xiewanhua
+sudo chmod 700 /data/xiewanhua
