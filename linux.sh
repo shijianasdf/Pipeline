@@ -22,7 +22,7 @@ sudo rm -rf /var/tmp/*
 #这个是清理系统日志
 sudo journalctl --vacuum-time=3d  
 #清空日志文件
-du -sh /var/log
+sudo du -sh /var/log
 sudo rm -rf /var/log/*.log
 #系统缓存
 sudo apt clean
