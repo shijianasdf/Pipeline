@@ -140,7 +140,7 @@ bedtools multicov -bams /data/shijian/ANNO_XS01KF2024060289_PM-XS01KF2024060289-
 
 # 9. SEACR call peak 
 ##== linux command ==##
-seacr="/home/shijian/software/SEACR/SEACR_1.3.sh"
+seacr="/data/shijian/software/SEACR/SEACR_1.3.sh"
 #histControl=$2
 mkdir -p $projPath/peakCalling/SEACR
 bash $seacr $projPath/alignment/bedgraph/H3K9me3_case_merged_mean.bedGraph \
