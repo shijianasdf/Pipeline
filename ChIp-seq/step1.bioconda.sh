@@ -74,6 +74,7 @@ conda install salmon
 conda install htseq
 conda install bedtools deeptools
 conda install bedops macs2 samtools
+conda install macs3
 conda install gatk gatk4 picard
 conda install subread
 conda install strelka 
