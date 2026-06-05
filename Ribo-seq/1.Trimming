@@ -1,0 +1,1 @@
+trim_galore --cores 16 --quality 20 --length 20 --max_length 35 --fastqc /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/raw/Sh-NC-3Ri/Sh-NC-3Ri.fq.gz
