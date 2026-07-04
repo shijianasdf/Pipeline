@@ -7,17 +7,19 @@
 # 3）star将未比对到的read比对到人类参考基因组
 # 4）featurecount量化
 
-#输入 ws工作空间：ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
+#输入 ws 
 
 #输出 1.trimGalore  
 #     2.filterReads
 #     3.bams
 #     4.counts
 
+
+
 #parameters
-ws=$1
+ws=$1   
 adapter=AACTGTAGGCACCATCAAT
-rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的
+rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的rrna和trna参考基因组序列索引
 star_index=/data/shijian/refData/human_reference/human_index/star.index
 gtf=/data/shijian/refData/human_reference/gencode.v48.chr_patch_hapl_scaff.annotation.gtf
 path_trimGalore=${ws}/1.trimGalore
@@ -27,8 +29,9 @@ path_counts=${ws}/4.counts
 config_file=${ws}/config.txt #配置文件，两列如下：Sh-2-2Ri /data/shijian/Sh-2-2Ri.fq.gz
 
 ## Usage
-# find /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/raw -name "*.fq.gz" | awk -F'/' '{ full_path=$0; sample_name=$NF; gsub(".fq.gz", "", sample_name); print sample_name, full_path }' > /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/config.txt
-# nohup ribo_flow.sh $ws > $ws/ribo.log 2>&1 &
+# ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
+# find $ws/raw -name "*.fq.gz" | awk -F'/' '{ full_path=$0; sample_name=$NF; gsub(".fq.gz", "", sample_name); print sample_name, full_path }' > $ws/config.txt
+# nohup bash ribo_flow.sh $ws > $ws/ribo.log 2>&1 &
 # tail -f $ws/ribo.log
 
 # dir
