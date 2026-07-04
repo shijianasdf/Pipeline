@@ -1,17 +1,42 @@
+## function: ribo_flow
+
+#### description 
+# ribo-seq处理流程
+# 1）trim_galore去除接头序列
+# 2）bowtie2将单端序列比对到rrna和trna序列参考基因组，得到未比对到的read
+# 3）star将未比对到的read比对到人类参考基因组
+# 4）featurecount量化
+
+#输入 ws：工作空间
+
+#输出 1.trimGalore  
+#     2.filterReads
+#     3.bams
+#     4.counts
+
+
+#ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
+#parameters
 ws=$1
-ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
 adapter=AACTGTAGGCACCATCAAT
-rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index
+rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的
 star_index=/data/shijian/refData/human_reference/human_index/star.index
 gtf=/data/shijian/refData/human_reference/gencode.v48.chr_patch_hapl_scaff.annotation.gtf
 path_trimGalore=${ws}/1.trimGalore
 path_filtreads=${ws}/2.filterReads
 path_bams=${ws}/3.bams
 path_counts=${ws}/4.counts
-config_file=${ws}/config.txt
+config_file=${ws}/config.txt #配置文件，两列如下：Sh-2-2Ri /data/shijian/Sh-2-2Ri.fq.gz
 
+## Usage
+# find /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/raw -name "*.fq.gz" | awk -F'/' '{ full_path=$0; sample_name=$NF; gsub(".fq.gz", "", sample_name); print sample_name, full_path }' > /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/config.txt
+# nohup ribo_flow $ws > $ws/ribo.log 2>&1 &
+# tail -f $ws/ribo.log
+
+# dir
 mkdir -p $path_trimGalore $path_filtreads $path_bams $path_counts
 
+# cycle for ribo-seq
 cat $config_file | while read it
 do
   arr=(${it})
@@ -45,3 +70,4 @@ do
   featureCounts -T 8 -t CDS -g gene_id -a ${gtf} -o ${path_counts}/${case}/counts.txt --primary -s 1 ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
   fi
 done
+# End ribo_flow
