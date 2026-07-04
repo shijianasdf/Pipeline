@@ -7,15 +7,13 @@
 # 3）star将未比对到的read比对到人类参考基因组
 # 4）featurecount量化
 
-#输入 ws：工作空间
+#输入 ws工作空间：ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
 
 #输出 1.trimGalore  
 #     2.filterReads
 #     3.bams
 #     4.counts
 
-
-#ws=/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa
 #parameters
 ws=$1
 adapter=AACTGTAGGCACCATCAAT
