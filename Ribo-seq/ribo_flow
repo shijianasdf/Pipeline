@@ -28,7 +28,7 @@ config_file=${ws}/config.txt #配置文件，两列如下：Sh-2-2Ri /data/shiji
 
 ## Usage
 # find /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/raw -name "*.fq.gz" | awk -F'/' '{ full_path=$0; sample_name=$NF; gsub(".fq.gz", "", sample_name); print sample_name, full_path }' > /data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/config.txt
-# nohup ribo_flow $ws > $ws/ribo.log 2>&1 &
+# nohup ribo_flow.sh $ws > $ws/ribo.log 2>&1 &
 # tail -f $ws/ribo.log
 
 # dir
