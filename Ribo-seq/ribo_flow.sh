@@ -1,4 +1,6 @@
 ## function: ribo_flow
+# Created by shi jian
+# Date: 2026-7-3
 
 #### description 
 # ribo-seq处理流程
