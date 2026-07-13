@@ -65,12 +65,9 @@ runHTSEQ <- function(bamDir,
 AggregateHTseq <- function(inputDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120019-12/6.counts1"){
   library(data.table)
   library(dplyr)
+  library(magrittr)
   filepaths <- list.files(path=inputDir,recursive = T,full.names = T) 
   sample_names <- stringr::str_split(basename(filepaths),pattern = "\\.",simplify = T)[,1]
-  temp <- fread(filepaths[1])
-  temp2 <- fread(filepaths[2])
-  temp3 <- temp %>% bind_cols(.,temp2$V2)
-  temp3 <- temp
   temp <- c()
   for(i in 1:length(filepaths)){
     file_i <- fread(filepaths[i])
@@ -81,8 +78,10 @@ AggregateHTseq <- function(inputDir = "G:/ANNO_XS01KF2023120019_PM-XS01KF2023120
     }
   }
   temp <- as.data.frame(temp)
-  temp %>% tibble::column_to_rownames("V1") %>% data.table::setnames(.,old = c("V2","V2.1","V2.2","V2.3","V2.4","V2.5"),
-                                                                     new = sample_names) -> temp1
-  temp2 <- head(temp1,-5)
-  return( temp2 )
+  temp %<>% tibble::column_to_rownames("V1") 
+  colnames(temp) <- sample_names
+  temp1 <- head(temp,-5)
+  return( temp1 )
 }
+
+
