@@ -56,7 +56,7 @@ runHTSEQ <- function(bamDir,
 #                     out.dir="/Users/shijian/mydata/bulkRNA/4.counts",
 #                     outfilepath="/Users/shijian/mydata/bulkRNA/htseq.sh")
 # list.files("/Users/shijian/mydata/bulkRNA/3.bam",full.names = T,recursive = T,pattern = ".bam$")
-#bash /Users/shijian/mydata/bulkRNA/htseq.sh > log.txt &
+#nohup bash /Users/shijian/mydata/bulkRNA/htseq.sh > log.txt 2>&1 &
 
 #' @description
 #' htseq-count 聚合每个样本的表达成为最终的表达矩阵
