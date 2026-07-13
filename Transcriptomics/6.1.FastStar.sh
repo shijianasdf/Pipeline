@@ -120,4 +120,4 @@ runSamtools <- function(bamDir,
 }
 runSamtools("/Users/shijian/mydata/bulkRNA/3.bam",
             outfilepath="/Users/shijian/mydata/bulkRNA/samtools.sh")
-#bash /Users/shijian/mydata/bulkRNA/samtools.sh > log_samtools.txt &
+#nohup bash /Users/shijian/mydata/bulkRNA/samtools.sh > log_samtools.txt &
