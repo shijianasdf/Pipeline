@@ -58,7 +58,7 @@ starRes <- runStar(sampleInfo=sampleInfo,
                     index="/Users/shijian/mydata/bulkRNA/0.reference/star.index/",
                     outfilepath="/Users/shijian/mydata/bulkRNA/star.sh",
                     outDir="/Users/shijian/mydata/bulkRNA/3.bam")
-#bash /Users/shijian/mydata/bulkRNA/star.sh > log.txt &
+#nohup bash /Users/shijian/mydata/bulkRNA/star.sh > log.txt 2>&1 &
 
 
 #' 升级了，对上面那版有改进，更简单
@@ -120,4 +120,4 @@ runSamtools <- function(bamDir,
 }
 runSamtools("/Users/shijian/mydata/bulkRNA/3.bam",
             outfilepath="/Users/shijian/mydata/bulkRNA/samtools.sh")
-#nohup bash /Users/shijian/mydata/bulkRNA/samtools.sh > log_samtools.txt &
+#nohup bash /Users/shijian/mydata/bulkRNA/samtools.sh > log_samtools.txt 2>&1 &
