@@ -16,7 +16,7 @@
 #     3.bams
 #     4.counts
 
-
+set -euo pipefail
 
 #parameters
 ws=$1   
@@ -64,6 +64,12 @@ do
     mkdir -p ${path_bams}/${case}
     echo `date` " STAR --outFilterType BySJout --runThreadN 16 --outFilterMismatchNmax 3 --genomeDir ${star_index} --readFilesIn ${output_bowtie2}/${case}_clean.fq.gz --outFileNamePrefix ${path_bams}/${case}/${case}_ --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --quantMode TranscriptomeSAM GeneCounts --outFilterMultimapNmax 20 --outFilterMatchNmin 16 --alignEndsType EndToEnd"
     STAR --outFilterType BySJout --runThreadN 16 --outFilterMismatchNmax 3 --genomeDir ${star_index} --readFilesIn ${output_bowtie2}/${case}_clean.fq.gz --outFileNamePrefix ${path_bams}/${case}/${case}_ --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --quantMode TranscriptomeSAM GeneCounts --outFilterMultimapNmax 20 --outFilterMatchNmin 16 --alignEndsType EndToEnd
+	  echo `date` " samtools index -@ 4 ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam"
+	  samtools index -@ 4 ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
+	  echo `date` " samtools sort -@ 4 ${path_bams}/${case}/${case}_Aligned.toTranscriptome.out.bam -o ${path_bams}/${case}/${case}_Aligned.toTranscriptome.sorted.bam"
+	  samtools sort -@ 4 ${path_bams}/${case}/${case}_Aligned.toTranscriptome.out.bam -o ${path_bams}/${case}/${case}_Aligned.toTranscriptome.sorted.bam
+	  echo `date` " samtools index ${path_bams}/${case}/${case}_Aligned.toTranscriptome.sorted.bam"
+	  samtools index ${path_bams}/${case}/${case}_Aligned.toTranscriptome.sorted.bam
   fi
   
   #feature counts量化
