@@ -57,7 +57,12 @@
 #' make.index(transcriptomeFile = "/pub6/temp/xlw/kallisto_linux-v0.44.0/gencode.v29.transcripts.fa.gz", 
 #'            outDir = "/home/longzl2017/dataScience/PipeLine/RNA-seq/test", 
 #'            type = "kallisto", k = 31)
-
+#' salmon lib_format_counts.json文件可以自动检测什么测序类型
+#' I：Paired-end（Inward）
+#' S：Stranded
+#' U：Unstranded
+#' R：Read1 与转录本反向（Reverse）
+#' F：Read1 与转录本同向（Forward）
 make.index <- function(transcriptomeFile,
                        outfilepath,
                        outDir, 
