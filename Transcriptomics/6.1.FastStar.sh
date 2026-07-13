@@ -104,9 +104,10 @@ starRes <- runStar(fastqDir = "/data/shijian/ANNO_XS01KF2023120019_PM-XS01KF2023
 #'star比对后没有bam文件的索引,需要利用samtools先建立索引,因为后续htseq-count会利用索引
 #'循环执行samtools index SRR11050949Aligned.sortedByCoord.out.bam >
 runSamtools <- function(bamDir,
-                        outfilepath){
-  bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = ".bam$")
-  bamnames <- list.files(bamDir,recursive = T,pattern = ".bam$")
+                        outfilepath,
+                        pattern=".bam$"){
+  bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = pattern)
+  bamnames <- list.files(bamDir,recursive = T,pattern = pattern)
   out.dir <- dirname(bamfiles)
   command <- "samtools index "
   commands <- c()
