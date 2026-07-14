@@ -41,3 +41,6 @@ sudo lsof | grep deleted
 sudo mkdir /data/xiewanhua
 sudo chown xiewanhua:xiewanhua /data/xiewanhua
 sudo chmod 700 /data/xiewanhua
+
+#查阅每个人的磁盘配额，是否有限制
+sudo repquota -a
