@@ -44,3 +44,5 @@ sudo chmod 700 /data/xiewanhua
 
 #查阅每个人的磁盘配额，是否有限制
 sudo repquota -a
+#查看某个用户的磁盘配额
+sudo quota -u username
