@@ -17,6 +17,9 @@ infer_experiment.py -r /data/shijian/refData/mouse_reference/gencode.vM37.chr_pa
 #' @param bamDir bam文件夹
 #' @param pattern "sortedByCoord.out.bam$"
 #' @param strand=c("yes","no","reverse")[1] 链特异性信息
+#' @param format=c("bam","sam")[1] 文件格式
+#' @param type=c("exon","gene","CDS")[1] 
+#' @param mode=c("union","intersection-strict","intersection-nonempty")[1]
 #' @param gtf.path gtf注释文件路径
 #' @param out.dir 输出结果路径
 #' @param outfilepath 命令行文件路径
@@ -30,7 +33,10 @@ infer_experiment.py -r /data/shijian/refData/mouse_reference/gencode.vM37.chr_pa
 #' yourfile_name.bam /Users/shijian/mydata/bulkRNA/0.reference/gencode.v38.chr_patch_hapl_scaff.annotation.gtf > counts.txt
 runHTSEQ <- function(bamDir,
                      pattern = "sortedByCoord.out.bam$",
+                     format=c("bam","sam")[1],
                      strand=c("yes","no","reverse")[1],
+                     type=c("exon","gene","CDS")[1],
+                     mode=c("union","intersection-strict","intersection-nonempty")[1],
                      gtf.path,
                      out.dir,
                      outfilepath){
@@ -39,22 +45,25 @@ runHTSEQ <- function(bamDir,
   #bamfiles <- list.files(bamDir,full.names = T,recursive = T,pattern = ".bam$")
   patients <- str_split(dirname(bamfiles),"/",simplify = T)[,dim(str_split(dirname(bamfiles),"/",simplify = T))[2]]
   if(!file.exists(out.dir))
-    dir.create(out.dir)
-  command <- paste0("htseq-count -f bam -r name -s ",strand," -m intersection-nonempty ")
+    dir.create(out.dir,recursive = T)
+  command <- paste0("htseq-count -f ",format," -r name -s ",strand," -t ",type, " -m ",mode)
   commands <- c()
   for(i in 1:length(bamfiles)){
-    tempcommand <- paste0(command,bamfiles[i]," ",gtf.path," > ",file.path(out.dir,paste0(patients[i],".txt")))
+    tempcommand <- paste0(command," ",bamfiles[i]," ",gtf.path," > ",file.path(out.dir,paste0(patients[i],".txt")))
     commands <- c(commands,tempcommand)
   }
   writeLines(commands,con = outfilepath)
   return(commands)
 }
-# htseq_res <- runHTSEQ(bamDir="/Users/shijian/mydata/bulkRNA/3.bam",
-#                     #sampleInfo,
-#                     strand=c("yes","no","reverse")[1],
-#                     gtf.path="/Users/shijian/mydata/bulkRNA/0.reference/gencode.v38.chr_patch_hapl_scaff.annotation.gtf",
-#                     out.dir="/Users/shijian/mydata/bulkRNA/4.counts",
-#                     outfilepath="/Users/shijian/mydata/bulkRNA/htseq.sh")
+# runHTSEQ(bamDir="/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0155_RNA_9hsa/5.star_bam",
+#           pattern = "sortedByCoord.out.bam$",
+#           format=c("bam","sam")[1],
+#           strand=c("yes","no","reverse")[2],
+#           type=c("exon","gene","CDS")[1],
+#           mode=c("union","intersection-strict","intersection-nonempty")[1],
+#           gtf.path="/data/shijian/refData/human_reference/gencode.v48.chr_patch_hapl_scaff.annotation.gtf",
+#           out.dir="/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0155_RNA_9hsa/5.counts",
+#           outfilepath="/data/shijian/project/NGSCommand/htseq.sh")
 # list.files("/Users/shijian/mydata/bulkRNA/3.bam",full.names = T,recursive = T,pattern = ".bam$")
 #nohup bash /Users/shijian/mydata/bulkRNA/htseq.sh > log.txt 2>&1 &
 
