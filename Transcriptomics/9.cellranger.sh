@@ -71,7 +71,7 @@ cellRanger_count <- function(outDir,outfilepath,inputDir,
     
   }      
 
-cellRanger(outDir="/data/shijian/project/scMutDB/exp_matrix/SRP239174",
+cellRanger_count(outDir="/data/shijian/project/scMutDB/exp_matrix/SRP239174",
            outfilepath="/data/shijian/project/NGSCommand/cellranger_gex.sh",
            inputDir="/data/shijian/project/scMutDB/fastq/SRP239174",
            pattern=".fastq.gz$",createBam=c("true","false")[1],
