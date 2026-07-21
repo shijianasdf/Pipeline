@@ -1,4 +1,4 @@
-AggregateFeatureCount <- function(inputDir = "/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/4.counts",
+AggregateFeatureCount_ribo <- function(inputDir = "/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0154_RIBO_9hsa/4.counts",
                                   pattern="counts.txt$"){
   library(data.table)
   library(dplyr)
