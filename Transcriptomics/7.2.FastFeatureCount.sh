@@ -1,3 +1,13 @@
+### 运行featureCounts计数
+#featureCounts -T 5 \
+#              -p \
+#              -t exon \ 
+#              -g gene_id \
+#              -s 0 \
+#              -a /teach/database/gtf/gencode.v25.annotation.gtf.gz \
+#              -o ~/6.featureCounts/all.id.txt \
+#              *sort.bam
+
 #-a：基因组注释文件（GTF/GFF格式），定义基因位置结构。
 #-o：输出结果文件名。
 #-t：特征类型（Feature type），默认为 exon（外显子）。
