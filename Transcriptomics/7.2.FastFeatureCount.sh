@@ -44,3 +44,32 @@ runFeatureCount(bamDir="/data/shijian/project/Coorperation/HanJuanGong/data_2025
                 out.dir="/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0155_RNA_9hsa/5.featurecounts",
                 outfilepath="/data/shijian/project/NGSCommand/featurecounts.sh")
 #nohup bash /data/shijian/project/NGSCommand/featurecounts.sh > featurecounts.log 2>&1 &
+
+#' @description 
+#' 对多个样本featurecount结果提取整理成表达矩阵
+#' @param  inputDir featurecount定量的count文件
+#' @param  pattern  选取文件名后缀
+AggregateFeatureCount <- function(inputDir = "/data/shijian/project/Coorperation/HanJuanGong/data_2025_cold_client/2026-03/ID26-0155_RNA_9hsa/5.featurecounts",
+                                  pattern=".txt$"){
+  library(data.table)
+  library(dplyr)
+  library(magrittr)
+  filepaths <- list.files(path=inputDir,recursive = T,full.names = T,pattern=pattern) 
+  sample_names <- stringr::str_split(basename(filepaths),pattern = "\\.",simplify = T)[,1]
+  #file_i <- fread(filepaths[1])
+  temp <- c()
+  for(i in 1:length(filepaths)){
+    file_i <- fread(filepaths[i])
+    file_i <- file_i[,c(1,7)]
+    if( i == 1){
+      temp <- c(temp,file_i)
+    }else{
+      temp <- c(temp,file_i[,2])
+    }
+  }
+  temp <- as.data.frame(temp)
+  temp %<>% tibble::column_to_rownames("Geneid") 
+  colnames(temp) <- sample_names
+  return( temp )
+}
+
