@@ -20,6 +20,7 @@ set -euo pipefail
 
 #parameters
 ws=$1   
+strand=$2
 adapter=AACTGTAGGCACCATCAAT
 rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的rrna和trna参考基因组序列索引
 star_index=/data/shijian/refData/human_reference/human_index/star.index
@@ -74,11 +75,11 @@ do
   
   #feature counts量化
   if [ -f ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam ]; then
-    echo `date` " featureCounts -T 8 -t CDS -g gene_id -a ${gtf} -o ${path_counts}/${case}/counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam"
+    echo `date` " featureCounts -T 8 -t CDS -g gene_id -a ${gtf} -s ${strand} -o ${path_counts}/${case}/counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam"
     mkdir -p ${path_counts}/${case}
-    featureCounts -T 8 -t CDS -g gene_id -a ${gtf} -o ${path_counts}/${case}/CDS_counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
-	echo `date` " featureCounts -T 8 -t exon -g gene_id -a ${gtf} -o ${path_counts}/${case}/counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam"
-	featureCounts -T 8 -t exon -g gene_id -a ${gtf} -o ${path_counts}/${case}/exon_counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
+    featureCounts -T 8 -t CDS -g gene_id -a ${gtf} -s ${strand} -o ${path_counts}/${case}/CDS_counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
+	echo `date` " featureCounts -T 8 -t exon -g gene_id -a ${gtf} -s ${strand} -o ${path_counts}/${case}/counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam"
+	featureCounts -T 8 -t exon -g gene_id -a ${gtf} -s ${strand} -o ${path_counts}/${case}/exon_counts.txt ${path_bams}/${case}/${case}_Aligned.sortedByCoord.out.bam
   fi
 done
 # End ribo_flow
