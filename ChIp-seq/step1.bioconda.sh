@@ -111,7 +111,6 @@ statsmodels \
 h5py \
 numba \
 networkx \
-igraph \
 python-igraph \
 leidenalg \
 joblib \
@@ -131,12 +130,9 @@ cellrank \
 liana \
 cellphonedb \
 scrublet \
-pyscenic \
 celltypist \
 scvi-tools \
 squidpy \
-harmonypy \
-bbknn \
 scanorama \
 infercnvpy \
 diffxpy \
