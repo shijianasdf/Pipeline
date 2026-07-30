@@ -95,6 +95,56 @@ conda install -c conda-forge r-essentials #安装R包
 conda install -c conda-forge r-tidyverse 
 R
 
+#服务器配置生信python环境
+#conda create -n py_env_3.11 python=3.11 -y
+#conda activate py_env_3.11
+#conda install \
+numpy \
+scipy \
+pandas \
+matplotlib \
+scikit-learn \
+jupyterlab \
+notebook \
+seaborn \
+statsmodels \
+h5py \
+numba \
+networkx \
+igraph \
+python-igraph \
+leidenalg \
+joblib \
+tqdm \
+openpyxl \
+xlsxwriter \
+pip \
+pyscenic \
+scanpy \
+anndata \
+umap-learn \
+bbknn \
+harmonypy \
+session-info \
+scvelo \
+cellrank \
+liana \
+cellphonedb \
+pyscenic \
+celltypist \
+scvi-tools \
+squidpy \
+harmonypy \
+bbknn \
+scanorama \
+diffxpy \
+plotly \
+adjustText \
+matplotlib-venn \
+loompy \
+pyarrow \
+tables
+
 #删除miniconda
 rm -rf /home/shijian/miniconda3
 rm -rf ~/.conda ~/.condarc ~/.continuum
