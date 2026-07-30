@@ -130,6 +130,7 @@ scvelo \
 cellrank \
 liana \
 cellphonedb \
+scrublet \
 pyscenic \
 celltypist \
 scvi-tools \
@@ -137,6 +138,7 @@ squidpy \
 harmonypy \
 bbknn \
 scanorama \
+infercnvpy \
 diffxpy \
 plotly \
 adjustText \
