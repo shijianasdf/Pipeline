@@ -96,9 +96,9 @@ conda install -c conda-forge r-tidyverse
 R
 
 #服务器配置生信python环境
-#conda create -n py_env_3.11 python=3.11 -y
-#conda activate py_env_3.11
-#conda install \
+conda create -n py_env_3.11 python=3.11 -y
+conda activate py_env_3.11
+conda install \
 numpy \
 scipy \
 pandas \
