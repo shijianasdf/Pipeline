@@ -96,6 +96,7 @@ conda install -c conda-forge r-tidyverse
 R
 
 #服务器配置生信python环境
+conda search python
 conda create -n py_env_3.11 python=3.11 -y
 conda activate py_env_3.11
 conda install \
@@ -142,6 +143,9 @@ matplotlib-venn \
 loompy \
 pyarrow \
 tables
+
+#pip安装python包
+pip install infercnvpy scvi-tools
 
 #删除miniconda
 rm -rf /home/shijian/miniconda3
