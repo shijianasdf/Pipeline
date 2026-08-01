@@ -146,6 +146,13 @@ tables
 
 #pip安装python包
 pip install infercnvpy scvi-tools
+pip list
+pip show scvelo
+try:
+    import cellrank
+    print("安装成功")
+except ImportError:
+    print("未安装")
 
 #删除miniconda
 rm -rf /home/shijian/miniconda3
