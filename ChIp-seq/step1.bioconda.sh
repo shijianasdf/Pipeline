@@ -39,10 +39,11 @@ conda config --get channels
 #移除所有channals
 conda config --remove-key channels
 #创建名为bioinfo的环境
-conda create -y --name bioinfo python=3 
+conda create -y --name bioinfo python=3.11
 conda create -y --name bioinfo python=2
 #激活bioinfo环境
 source activate bioinfo
+conda activate bioinfo
 #查看系统中已有的环境
 conda info -e 
 conda env list
@@ -50,6 +51,8 @@ conda env list
 conda deactivate
 #删除某个环境(名为bioinfo的环境)
 conda remove -n bioinfo --all
+#删除某个路径下的环境
+conda remove -p /data/shijian/software/envs/cytoscape_jdk17 --all
 #更新miniconda
 conda update conda
 #安装软件
