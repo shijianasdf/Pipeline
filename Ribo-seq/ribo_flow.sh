@@ -19,8 +19,8 @@
 set -euo pipefail
 
 #parameters
-ws=$1   
-strand=$2
+ws=$1   #当前工作目录
+strand=$2 #链信息
 adapter=AACTGTAGGCACCATCAAT
 rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的rrna和trna参考基因组序列索引
 star_index=/data/shijian/refData/human_reference/human_index/star.index
