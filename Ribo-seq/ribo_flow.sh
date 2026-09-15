@@ -22,7 +22,7 @@ set -euo pipefail
 ws=$1   
 strand=$2
 adapter=AACTGTAGGCACCATCAAT
-rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_index/rrna_trna_index  #bowtie2构建的rrna和trna参考基因组序列索引
+rrna_trna_index=/data/shijian/refData/human_reference/riboseq/rrna_trna_shRNA_index/rrna_trna_shRNA_index  #bowtie2构建的rrna和trna参考基因组序列索引
 star_index=/data/shijian/refData/human_reference/human_index/star.index
 gtf=/data/shijian/refData/human_reference/gencode.v48.chr_patch_hapl_scaff.annotation.gtf
 path_trimGalore=${ws}/1.trimGalore
