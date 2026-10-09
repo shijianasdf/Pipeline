@@ -9,6 +9,9 @@
 #' @param length: read长度阈值，Trim Galore软件默认要求read最小长度为20。对于paired-end数据，则要求两个配对的read长度都满足该要求才会保留。
 #' @param threads: 并行线程数目。一般默认为20
 #' @param extraParameter 自定义扩展参数字符串，可以加入不在函数设定参数内的运行参数，默认为NULL。输入需要完全按照Trim Galore参数组合方式排列，如"--suppress_warn"
+#'                       如果提供接头序列，可以手动指定接头序列来去除接头，一般默认自动去除接头
+#'                       如果单末端 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+#'                       如果双末端 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -a2 AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
 
 #' @return trim galore质量处理后的文件。如果为双末端测序，则输出为1_val_1.fq.gz/2_val_2.fq.gz结尾文件；如果为单末端测序，则输出为trimmed.fq.gz结尾文件
 
