@@ -49,7 +49,7 @@ do
   output_trimGalore=${path_trimGalore}/${case}
   if [ -f $fq ]; then
     mkdir -p ${output_trimGalore}
-    echo `date` " trim_galore --cores 16 -a ${adapter} --length 20 --max_length 35 --fastqc -o ${output_trimGalore} ${fq}"
+    echo `date` " trim_galore --cores 16 -a ${adapter} --length 25 --max_length 35 --fastqc -o ${output_trimGalore} ${fq}"
     trim_galore --cores 16 -a ${adapter} --length 20 --max_length 35 --fastqc -o ${output_trimGalore} ${fq}
   fi
   
