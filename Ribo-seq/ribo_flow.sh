@@ -57,8 +57,8 @@ do
   output_bowtie2=${path_filtreads}/${case}
   if [ -f $input_trimread ]; then
     mkdir -p ${output_bowtie2}
-    echo `date` " bowtie2 -p 16 -x ${rrna_trna_index} -U ${input_trimread} --very-sensitive -L 18 --un-gz ${output_bowtie2}/${case}_clean.fq.gz -S ${output_bowtie2}/${case}.sam"
-    bowtie2 -p 16 -x ${rrna_trna_index} -U ${input_trimread} --very-sensitive -L 18 --un-gz ${output_bowtie2}/${case}_clean.fq.gz -S ${output_bowtie2}/${case}.sam
+    echo `date` " bowtie2 -p 16 -x ${rrna_trna_index} -U ${input_trimread} --very-sensitive --end-to-end -L 18 --un-gz ${output_bowtie2}/${case}_clean.fq.gz -S ${output_bowtie2}/${case}.sam"
+    bowtie2 -p 16 -x ${rrna_trna_index} -U ${input_trimread} --very-sensitive --end-to-end -L 18 --un-gz ${output_bowtie2}/${case}_clean.fq.gz -S ${output_bowtie2}/${case}.sam
   fi
   
   if [ -f ${output_bowtie2}/${case}_clean.fq.gz ]; then
