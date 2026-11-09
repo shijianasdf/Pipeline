@@ -46,3 +46,5 @@ sudo chmod 700 /data/xiewanhua
 sudo repquota -a
 #查看某个用户的磁盘配额
 sudo quota -u username
+#修改某个用户的限制 hard soft
+sudo edquota -u xiewanhua
